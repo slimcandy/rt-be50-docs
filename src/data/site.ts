@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://rt-be50.netlify.app'
+export const SITE_URL = 'https://rt-be50.volkov.ru.net'
 export const SITE_NAME = 'RT-BE50: справочник'
 
 // Every router page has its own .asp address, so a page of this guide can link
