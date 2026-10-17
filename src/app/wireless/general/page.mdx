@@ -1,0 +1,70 @@
+export const metadata = {
+  title: 'Wireless - General',
+  description:
+    'Каналы и ширина канала Wi‑Fi в роутере ASUS RT-BE50: что значат поля и когда их трогать. Где теперь имя сети и пароль.',
+}
+
+# Wireless - General
+
+Каналы Wi‑Fi и ширина канала, отдельно для 2,4 и 5 ГГц. Роутер пишет здесь «Set up the wireless related information below». По умолчанию везде стоит автоматика, и в большинстве квартир её лучше не трогать. {{ className: 'lead' }}
+
+<Note tone="info">
+  Имя сети, пароль, защита и Smart Connect на этой прошивке не здесь. С версии 3.0.0.6.102_35404 ASUS перенесла их в профиль основной сети: <Path items={['Network', 'Main Network']} />.
+</Note>
+
+<HowToSearch queries={["как выбрать канал wi-fi 2.4 ггц", "ширина канала 2.4 ггц 20 или 40", "dfs каналы 5 ггц радар"]}>
+  Канал управления — основной канал, primary channel. Ширина канала — channel width, полоса. DFS — динамический выбор частоты, каналы, которые роутер обязан освобождать при радаре.
+</HowToSearch>
+
+## 2.4 GHz
+
+<Fields>
+  <Field name="Channel bandwidth" aka="ширина канала" options={['20/40 MHz', '20 MHz', '40 MHz']}>
+    Насколько «широкая труба» для Wi‑Fi. Шире — быстрее, но больше мешает соседям. В многоквартирном доме на 2,4 ГГц разумнее <K>20 MHz</K> или <K>20/40 MHz</K>.
+  </Field>
+  <Field name="Control Channel" aka="канал Wi‑Fi" options={['Auto', '1', '…', '13']} recommended="Auto">
+    Номер канала. <K>Auto</K> выбирает роутер, текущий канал написан рядом. Вручную меняют, когда соседняя сеть забивает ваш канал; на 2,4 ГГц обычно берут 1, 6 или 11.
+  </Field>
+  <Field name="Auto select channel including channel 12, 13" aka="каналы 12 и 13" kind="check" options={['включить']}>
+    Разрешить автоматике каналы 12 и 13. В России они разрешены, но часть устройств, настроенных под США, их не видит.
+  </Field>
+  <Field name="Extension Channel" options={['Auto']} recommended="Auto">
+    Единственный вариант.
+  </Field>
+</Fields>
+
+## 5 GHz
+
+<Fields>
+  <Field name="Channel bandwidth" aka="ширина канала" options={['20/40/80/160 MHz', '20 MHz', '40 MHz', '80 MHz', '160 MHz']} id="channel-bandwidth-5">
+    Флажок <K>Enable 160 MHz</K> рядом разрешает самую широкую полосу. 160 МГц возможны только на каналах 36–64, куда входят каналы с <T>DFS</T>: при радаре роутер откатится на 80 МГц.
+  </Field>
+  <Field name="Control Channel" aka="канал Wi‑Fi" options={['Auto', '36', '…', '64', '100', '…', '140']} recommended="Auto" id="control-channel-5">
+    Номер канала на 5 ГГц.
+  </Field>
+  <Field name="Auto select channel including DFS channels" aka="каналы DFS" kind="check" options={['включить']}>
+    Разрешить автоматике каналы с <T>DFS</T> (52–64 и 100–140). Они свободнее, но если рядом заработает радар, 5 ГГц пропадёт на 1–10 минут, пока роутер ищет другой канал. По умолчанию включено.
+  </Field>
+  <Field name="Extension Channel" options={['Auto']} recommended="Auto" id="extension-channel-5">
+    Единственный вариант.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011431/", title: "Как изменить ширину канала", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1011432/", title: "Как установить канал управления", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1045936/", title: "Что такое DFS", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1030641/", title: "Wi‑Fi сигнал часто прерывается", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://habr.com/ru/articles/506812/", title: "Выбираем канал для точки доступа Wi‑Fi", note: "habr.com · подробное руководство" },
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/45473-setting-the-wireless-channel-width-to-20-40-mhz.html", title: "Ширина канала 20/40 МГц", note: "support.netcraze.ru · Keenetic" },
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/20211-available-channels-on-the-5-ghz-wireless-network.html", title: "Каналы 5 ГГц при ширине 160 МГц", note: "support.netcraze.ru · Keenetic" },
+    { href: "https://ru.wikipedia.org/wiki/IEEE_802.11h", title: "IEEE 802.11h (DFS)", note: "ru.wikipedia.org" },
+  ]}
+  here={[
+    { href: "/network", title: "Network", note: "Имя сети, пароль, защита" },
+    { href: "/wireless/professional", title: "Wireless - Professional", note: "Тонкие настройки радио" },
+  ]}
+/>

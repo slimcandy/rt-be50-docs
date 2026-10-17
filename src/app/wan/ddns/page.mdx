@@ -1,0 +1,61 @@
+export const metadata = {
+  title: 'WAN - DDNS',
+  description:
+    'DDNS в роутере ASUS RT-BE50: постоянное имя для домашнего адреса, asuscomm.com и сертификат Let’s Encrypt.',
+}
+
+# WAN - DDNS
+
+<T>DDNS</T> даёт домашнему адресу постоянное имя, например `myhome.asuscomm.com`, даже если провайдер меняет адрес. Нужно, только чтобы заходить домой из интернета: в VPN, на NAS. {{ className: 'lead' }}
+
+<Note>
+  ASUS выводит из работы старый способ регистрации имён `asuscomm.com`: обновиться и перерегистрировать имя нужно было до 30 сентября 2026. Если DDNS от ASUS перестал работать, обновите прошивку и заново нажмите <K>Apply</K> на этой странице.
+</Note>
+
+Если роутер пишет «The current router uses a Private IP», у него серый адрес, и снаружи по имени до него не достучаться. Проверка — в <Path items={['Network Map']} />.
+
+<HowToSearch queries={["asus ddns asuscomm не работает", "asus let's encrypt сертификат роутер"]}>
+  Динамический DNS, DDNS, Dynamic DNS, asuscomm.com.
+</HowToSearch>
+
+## DDNS
+
+<Fields>
+  <Field name="DDNS" aka="включить DDNS" options={['ON', 'OFF']}>
+    Включает DDNS.
+  </Field>
+  <Field name="Server" aka="сервис DDNS" options={['WWW.ASUS.COM', 'WWW.NO-IP.COM', 'FREEDNS.AFRAID.ORG', 'DYNU.COM', '…']}>
+    Сервис имён. <K>WWW.ASUS.COM</K> — бесплатное имя `*.asuscomm.com` от ASUS, регистрация не нужна, имя привязано к роутеру. Работают только сервисы из списка.
+  </Field>
+  <Field name="Host Name" aka="имя" kind="text" example="myhome.asuscomm.com">
+    Имя, по которому будет доступен дом.
+  </Field>
+  <Field name="IPv6 Update" options={['Yes', 'No']}>
+    Обновлять и IPv6‑адрес, если он есть.
+  </Field>
+  <Field name="Enable wildcard" options={['Yes', 'No']} recommended="No">
+    Чтобы и любое `что-угодно.ваше-имя` вело домой.
+  </Field>
+  <Field name="HTTPS/SSL Certificate" aka="Let's Encrypt" options={["Free Certificate from Let's Encrypt", 'Import Your Own Certificate', 'Auto']}>
+    Сертификат для входа в роутер по HTTPS. С Let’s Encrypt браузер перестаёт показывать предупреждение, но только при входе по DDNS‑имени и не за двойным NAT. Названия вариантов в разных прошивках немного отличаются.
+  </Field>
+  <Field name="Root Certificate/Intermediate Certificate / Server Certificate" aka="экспорт сертификата" kind="info" example="Export">
+    Скачать текущий сертификат роутера. Его можно установить на компьютер, чтобы браузер доверял адресу роутера внутри дома.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011725/", title: "Введение в DDNS и настройка", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1057143/", title: "Уведомление об обновлении безопасности службы DDNS", note: "asus.com · FAQ · срок 30.09.2026" },
+    { href: "https://www.asus.com/ru/support/faq/1050429/", title: "DDNS при сером WAN IP", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1034294/", title: "«Ваше соединение не является приватным» в интерфейсе роутера", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://ru.wikipedia.org/wiki/Динамический_DNS", title: "Динамический DNS", note: "ru.wikipedia.org" },
+    { href: "https://letsencrypt.org/ru/docs/challenge-types/", title: "Let’s Encrypt: типы проверок", note: "letsencrypt.org" },
+  ]}
+  here={[
+    { href: "/administration/system", title: "Administration - System", note: "Удалённый доступ и его риски" },
+  ]}
+/>

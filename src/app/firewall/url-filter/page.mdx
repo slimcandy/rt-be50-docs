@@ -1,0 +1,44 @@
+export const metadata = {
+  title: 'Firewall - URL Filter',
+  description:
+    'URL-фильтр в роутере ASUS RT-BE50: как заблокировать сайт для всей сети и почему фильтр легко обойти.',
+}
+
+# Firewall - URL Filter
+
+Блокировка сайтов по слову в адресе: впишите `XXX`, и закроются `abcXXX.com`, `XXXbbb.com` и так далее. Действует на всю сеть сразу, отдельно для одного устройства не настраивается. {{ className: 'lead' }}
+
+<Note>
+  Фильтр срабатывает на запросах имён (DNS) к роутеру. Устройство, на котором включён свой зашифрованный DNS (DoH или DoT в браузере или в системе), его обходит. Чтобы закрыть «один сайт для всех», этого хватает; как защита от детской изобретательности — нет.
+</Note>
+
+<HowToSearch queries={['asus url фильтр не работает https', 'заблокировать сайт на роутере asus']}>
+  URL‑фильтр, чёрный список сайтов (Deny List), белый список (Allow List), блокировка сайтов.
+</HowToSearch>
+
+## URL Filter
+
+<Fields>
+  <Field name="Enable URL Filter" options={['Enabled', 'Disabled']}>
+    Включает фильтр.
+  </Field>
+  <Field name="Filter table type" aka="чёрный или белый список" options={['Deny List', 'Allow List']} recommended="Deny List">
+    <K>Deny List</K> — закрыть то, что в списке. <K>Allow List</K> — открыть только то, что в списке: легко отрезать себе почти весь интернет.
+  </Field>
+  <Field name="URL Filter List" aka="список" kind="text" example="слово или домен">
+    Слова или домены. Добавление — <K>+</K>.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1037946/', title: 'Как настроить URL-фильтр: чёрный и белый списки', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/DNS_поверх_HTTPS', title: 'DNS поверх HTTPS', note: 'ru.wikipedia.org · почему фильтр обходят' },
+    { href: 'https://ru.wikipedia.org/wiki/Server_Name_Indication', title: 'Server Name Indication', note: 'ru.wikipedia.org' },
+  ]}
+  here={[
+    { href: '/parental-controls/adguard', title: 'Parental Controls - AdGuard', note: 'Фильтр по категориям сайтов' },
+  ]}
+/>

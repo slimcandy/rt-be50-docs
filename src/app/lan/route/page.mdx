@@ -1,0 +1,37 @@
+export const metadata = {
+  title: 'LAN - Route',
+  description:
+    'Статические маршруты в роутере ASUS RT-BE50: что это и когда они нужны дома.',
+}
+
+# LAN - Route
+
+Статические маршруты: «чтобы попасть в сеть X, иди через устройство Y». Нужны, только если за роутером есть ещё одна сеть со своим роутером. В обычной квартире не нужны. {{ className: 'lead' }}
+
+<HowToSearch queries={["статическая маршрутизация два роутера", "asus как настроить маршрут"]}>
+  Статический маршрут, static route, метрика, шлюз.
+</HowToSearch>
+
+## Route
+
+<Fields>
+  <Field name="Enable static routes" aka="статические маршруты" options={['Yes', 'No']} recommended="No">
+    Включает таблицу маршрутов ниже.
+  </Field>
+  <Field name="Network/Host IP / Netmask / Gateway / Metric" aka="строка маршрута" kind="text">
+    Куда (сеть и маска), через кого (шлюз) и приоритет (метрика).
+  </Field>
+  <Field name="Interface" options={['LAN', 'MAN', 'WAN']}>
+    Через какой порт роутера идёт маршрут. <K>MAN</K> — локальная сеть провайдера за интернет‑портом. Всего до 32 маршрутов.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011706/", title: "Как настроить маршрут", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://linkmeup.gitbook.io/sdsm/3.-static_routing/02-principi-marshrutiacii", title: "Статическая маршрутизация: принципы", note: "linkmeup · «Сети для самых маленьких»" },
+    { href: "https://ru.wikipedia.org/wiki/Таблица_маршрутизации", title: "Таблица маршрутизации", note: "ru.wikipedia.org" },
+  ]}
+/>

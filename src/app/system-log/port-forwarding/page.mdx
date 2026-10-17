@@ -1,0 +1,21 @@
+export const metadata = {
+  title: 'System Log - Port Forwarding',
+  description:
+    'Действующие правила проброса портов в роутере ASUS RT-BE50, включая UPnP.',
+}
+
+# System Log - Port Forwarding
+
+Какие порты сейчас открыты из интернета внутрь сети: ваши правила и те, что программы открыли сами через UPnP. Если вы ничего не пробрасывали, а список не пуст — посмотрите, какое устройство открыло порт. {{ className: 'lead' }}
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1037906/', title: 'Как настроить проброс портов', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/Проброс_портов', title: 'Проброс портов', note: 'ru.wikipedia.org' },
+  ]}
+  here={[
+    { href: '/wan/internet-connection', title: 'WAN - Internet Connection', note: 'Выключить UPnP' },
+  ]}
+/>

@@ -1,0 +1,32 @@
+export const metadata = {
+  title: 'Firewall - Keyword Filter',
+  description:
+    'Фильтр по ключевым словам в роутере ASUS RT-BE50 и почему в эпоху HTTPS он почти не работает.',
+}
+
+# Firewall - Keyword Filter
+
+Блокирует страницы, в тексте которых есть заданное слово. Сам роутер честно пишет, что страницы по HTTPS и сжатые страницы он фильтровать не может. Сегодня это почти весь интернет, так что фильтр почти ничего не делает. {{ className: 'lead' }}
+
+## Keyword Filter
+
+<Fields>
+  <Field name="Enable Keyword Filter" options={['Enabled', 'Disabled']} recommended="Disabled">
+    Включает фильтр.
+  </Field>
+  <Field name="Keyword Filter List" aka="список слов" kind="text">
+    Слова для блокировки.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/support/faq/1013634/', title: 'How to set up Keyword Filter', note: 'asus.com · FAQ · на английском; в русской версии ошибка перевода про HTTPS' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/HTTPS', title: 'HTTPS', note: 'ru.wikipedia.org · почему роутер не видит содержимое' },
+  ]}
+  here={[
+    { href: '/firewall/url-filter', title: 'Firewall - URL Filter', note: 'Блокировка по адресу работает лучше' },
+  ]}
+/>

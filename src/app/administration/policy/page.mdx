@@ -1,0 +1,42 @@
+export const metadata = {
+  title: 'Administration - Policy',
+  description:
+    'Политика конфиденциальности в роутере ASUS RT-BE50: какие данные уходят в ASUS и что перестанет работать, если отозвать согласие.',
+}
+
+# Administration - ASUS NOTICE( for privacy )
+
+Два документа: <K>End User License Agreement (EULA)</K> и <K>ASUS PRIVACY NOTICE</K>, у каждого кнопка <K>Read</K>. Если согласие было дано, его можно отозвать (<K>Withdraw</K>); пока его не давали, облачные функции данные не отправляют. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus router privacy withdraw', 'asus политика конфиденциальности роутер']}>
+  Политика конфиденциальности, privacy notice, EULA, согласие на сбор данных.
+</HowToSearch>
+
+## Что уходит и что перестанет работать
+
+<Fields>
+  <Field name="Что передаётся" aka="data collection">
+    Для облачных функций роутер передаёт ASUS модель, версию прошивки, IP‑ и MAC‑адреса, DDNS‑имя.
+  </Field>
+  <Field name="Каким функциям нужно согласие">
+    DDNS от ASUS, удалённое подключение через приложение, функции на базе Trend Micro (на этой модели большая часть скрыта), Adaptive QoS.
+  </Field>
+  <Field name="После отзыва" aka="Withdraw">
+    DDNS‑имя освобождается, приложение ASUS Router работает только дома. По отзывам пользователей (не по документации ASUS), отключаются и автоматические обновления безопасности.
+  </Field>
+</Fields>
+
+<Note tone="info">
+  Это обмен: меньше данных уходит производителю, но и меньше удобств, включая, возможно, автоматические исправления уязвимостей. Если отзываете согласие, проверяйте обновления вручную: <Path items={['Administration', 'Firmware Upgrade']} />.
+</Note>
+
+<Related
+  official={[
+    { href: 'https://demoui.asus.com/Advanced_Privacy.asp', title: 'Демо интерфейса: Administration › Privacy', note: 'demoui.asus.com · другая модель · на английском' },
+    { href: 'https://www.asus.com/ru/terms_of_use_notice_privacy_policy/privacy_policy/', title: 'Политика конфиденциальности ASUS', note: 'asus.com' },
+    { href: 'https://www.asus.com/ru/support/faq/1041753/', title: 'ASUS Privacy: частые вопросы', note: 'asus.com · FAQ · как запросить удаление данных' },
+  ]}
+  here={[
+    { href: '/checklist', title: 'Чеклист приватности и безопасности', note: 'Что ещё влияет на приватность' },
+  ]}
+/>

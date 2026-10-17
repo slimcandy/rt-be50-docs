@@ -1,0 +1,32 @@
+export const metadata = {
+  title: 'Network Tools - Netstat',
+  description:
+    'Netstat в роутере ASUS RT-BE50: открытые порты и соединения самого роутера.',
+}
+
+# Network Tools - Netstat
+
+Открытые порты и соединения самого роутера (netstat) и соединения через NAT (netstat‑nat). Инструмент для отладки. {{ className: 'lead' }}
+
+## Netstat
+
+<Fields>
+  <Field name="Method" options={['Netstat', 'Netstat-nat']}>
+    Соединения самого роутера или соединения устройств через NAT.
+  </Field>
+  <Field name="Option" options={['Display all sockets', 'TCP sockets', 'UDP sockets', 'RAW sockets', 'UNIX sockets', 'Display listening server sockets', 'Display routing table']}>
+    Что показать. <K>Display listening server sockets</K> — какие порты роутер слушает.
+  </Field>
+  <Field name="Resolve name" options={['No', 'Yes']}>
+    Показывать имена вместо адресов. Медленнее.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1011926/', title: 'Как пользоваться Netstat', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/Netstat', title: 'Netstat', note: 'ru.wikipedia.org' },
+  ]}
+/>

@@ -1,0 +1,34 @@
+export const metadata = {
+  title: 'Wireless - Roaming Block List',
+  description:
+    'Список устройств, которым запрещено переключаться между узлами AiMesh, в роутере ASUS RT-BE50.',
+}
+
+# Wireless - Roaming Block List
+
+Список устройств, которые не должны переходить между узлами <Path items={['AiMesh']} />. Нужен только если узлов больше одного. Обычно сюда добавляют то, что стоит на месте и плохо переносит переключения: умные колонки, принтеры, телевизоры. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus roaming block list", "aimesh привязать устройство к узлу"]}>
+  Чёрный список роуминга, roaming deny list. Привязать устройство к одному узлу у ASUS можно отдельной функцией Bind.
+</HowToSearch>
+
+## Roaming Block List
+
+<Fields>
+  <Field name="Enable roaming deny list" aka="запрет роуминга" options={['Yes', 'No']}>
+    Включает список. Без AiMesh ничего не меняет. AiMesh перестаёт сам перебрасывать эти устройства, но устройство всё равно может перейти к другому узлу по своему решению.
+  </Field>
+  <Field name="Client Name (MAC Address)" kind="text" example="имя или MAC">
+    Устройство, которое останется на своём узле. Добавляется кнопкой <K>+</K>, удаляется <K>−</K>.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1039647/", title: "Что такое чёрный список роуминга", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1046957/", title: "Как привязать клиента к узлу AiMesh", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/15234-specifics-of-client-transition-between-nodes-in-the-wi-fi-system.html", title: "Как устройства переходят между узлами", note: "support.netcraze.ru · Keenetic" },
+  ]}
+/>

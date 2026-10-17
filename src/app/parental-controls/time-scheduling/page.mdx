@@ -1,0 +1,54 @@
+export const metadata = {
+  title: 'Parental Controls - Time Scheduling',
+  description:
+    'Родительский контроль по расписанию в роутере ASUS RT-BE50: как отключать интернет устройствам в заданные часы.',
+}
+
+# Parental Controls - Time Scheduling
+
+Расписание доступа в интернет для выбранных устройств: например, планшет ребёнка без интернета после 22:00. Это расписание, а не фильтр сайтов. Роутер выключает устройству весь интернет по его MAC‑адресу. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus родительский контроль расписание", "частный адрес wi-fi iphone отключить", "asus parental controls offline schedule"]}>
+  Родительский контроль, расписание доступа в интернет. <K>Offline Schedule</K> — часы без интернета, <K>Online Schedule</K> — часы с интернетом. Случайный MAC на телефонах: «частный адрес Wi‑Fi» (iPhone), «случайный MAC‑адрес» (Android).
+</HowToSearch>
+
+## Расписание
+
+<Fields>
+  <Field name="Enable Parental Controls" aka="родительский контроль" options={['ON', 'OFF']}>
+    Включает расписание.
+  </Field>
+  <Field name="Enable block all devices" aka="отключить интернет всем" options={['ON', 'OFF']}>
+    Аварийный выключатель: интернет пропадает у всех устройств сразу.
+  </Field>
+  <Field name="Client Name (MAC Address)" aka="устройство" kind="text" example="имя или MAC">
+    Устройство, к которому применяется расписание. Добавляется кнопкой <K>+</K>.
+  </Field>
+  <Field name="Time Management" aka="сетка расписания, значок часов">
+    Значок часов у устройства открывает сетку «день × час». В режиме <K>Offline Schedule</K> отмечают часы, когда интернета нет; в <K>Online Schedule</K> (есть не на всех моделях) — когда он есть. Смотрите, какой режим выбран.
+  </Field>
+  <Field name="System Time" aka="время роутера" kind="info">
+    Расписание работает только при правильном времени. Часовой пояс задаётся в <Path items={['Administration', 'System']} />.
+  </Field>
+</Fields>
+
+Роутер сам советует выключить <Path items={['LAN', 'Switch Control']} /> → <K>NAT Acceleration</K> для более точной работы расписания: ценой скорости на быстром тарифе. Заблокированное устройство всё равно может открыть страницу настроек роутера. Расписание работает только в режиме роутера, не в режиме точки доступа.
+
+<Note>
+  Телефоны по умолчанию подключаются к Wi‑Fi со случайным MAC‑адресом и могут его менять. Тогда расписание перестанет узнавать устройство. В настройках Wi‑Fi сети на телефоне выключите «частный адрес» («случайный MAC»).
+</Note>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1008720/", title: "Как настроить родительский контроль", note: "asus.com · FAQ · режимы и расписание" },
+    { href: "https://www.asus.com/ru/support/faq/1053608/", title: "Что такое родительский контроль", note: "asus.com · FAQ · обзор" },
+    { href: "https://www.asus.com/ru/support/faq/1048212/", title: "Как проверить время роутера и настроить NTP", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://support.apple.com/ru-ru/102509", title: "Частные адреса Wi‑Fi на устройствах Apple", note: "support.apple.com" },
+    { href: "https://support.netcraze.ru/4g/nc-1213/ru/14052-a-work-schedule-for-connected-devices.html", title: "Расписание работы устройств домашней сети", note: "support.netcraze.ru · Keenetic · тот же принцип у другого производителя" },
+  ]}
+  here={[
+    { href: "/network", title: "Network", note: "Kid's Network — отдельная детская сеть" },
+  ]}
+/>

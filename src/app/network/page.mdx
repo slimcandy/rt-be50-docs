@@ -1,0 +1,129 @@
+export const metadata = {
+  title: 'Network',
+  description:
+    'Раздел Network в роутере ASUS RT-BE50: имя и пароль основной Wi‑Fi сети, защита, а также гостевая, детская, IoT- и VPN-сети.',
+}
+
+# Network
+
+Все Wi‑Fi сети роутера. Здесь меняют имя и пароль основной сети и создают дополнительные: гостевую, детскую, для умного дома, для VPN. У ASUS эта функция на RT-BE50 называется Smart Home Master («Мастер умного дома»), на других моделях — Guest Network Pro. С прошивки 3.0.0.6.102_35404 пункт меню называется просто Network. {{ className: 'lead' }}
+
+Сеть открывается щелчком по её карточке, новая создаётся кнопкой <K>Add a Network</K>. Изменения сохраняет <K>Apply</K> внизу панели.
+
+<Note>
+  Менять имя сети, пароль или защиту удобнее по кабелю: после <K>Apply</K> устройства по Wi‑Fi потеряют связь, и подключаться придётся заново.
+</Note>
+
+<HowToSearch queries={["asus изменить имя и пароль wi-fi", "wpa2 или wpa3 что выбрать", "asus smart home master iot сеть"]}>
+  На RT-BE50 — Smart Home Master («Мастер умного дома»), на других моделях ASUS — Guest Network Pro, в документации — SDN (Self-Defined Network). У других производителей — гостевая сеть, сегменты сети, несколько SSID. Выбор обоих диапазонов в <K>WiFi Band</K> — это Smart Connect, он же Band Steering. <K>Set AP Isolated</K> — изоляция клиентов (client isolation).
+</HowToSearch>
+
+## Main Network
+
+Основная сеть: полный доступ к домашним устройствам и в интернет. Поля ниже — в её карточке.
+
+<Fields>
+  <Field name="Network Name (SSID)" aka="имя Wi‑Fi сети" kind="text">
+    Имя, которое видят устройства вокруг. Не используйте фамилию или адрес: имя видно соседям.
+  </Field>
+  <Field name="WiFi Band" aka="Smart Connect, Band Steering" kind="check" options={['2.4GHz', '5GHz']}>
+    На каких диапазонах работает сеть. Отмечены оба — это Smart Connect: одно имя и один пароль, роутер сам решает, куда отправить устройство. Если умная техника не подключается, ASUS советует не разделять сеть, а завести для неё IoT‑сеть.
+  </Field>
+  <Field name="Security" aka="тип защиты" options={['Open', 'Password', 'RADIUS Setting']} recommended="Password">
+    <K>Open</K> — без пароля. <K>Password</K> — обычная домашняя сеть с паролем. <K>RADIUS Setting</K> — для офиса с сервером учётных записей (<T>RADIUS</T>), тогда появляются поля <K>Server IP Address</K>, <K>Server Port</K>, <K>Connection Secret</K>.
+  </Field>
+  <Field name="Authentication Method" aka="WPA2, WPA3" options={['WPA2-Personal', 'WPA/WPA2-Personal', 'WPA2/WPA3-Personal', 'WPA3-Personal']} recommended="WPA2/WPA3-Personal">
+    Лучший выбор для дома: <K>WPA2/WPA3-Personal</K>. Новые устройства подключатся по <T>WPA3</T>, старые по <T>WPA2</T>. Если вся техника современная, можно <K>WPA3-Personal</K>, но тогда не работает <Path items={['Wireless', 'WPS']} />.
+  </Field>
+  <Field name="WPA Encryption" aka="шифрование" options={['TKIP', 'AES', 'AES+GCMP256', 'TKIP+AES', 'Suite B']}>
+    Набор вариантов зависит от защиты выше. <T>AES</T> — современное шифрование, GCMP‑256 — ещё более стойкое из Wi‑Fi 7. TKIP устарел. Если старое устройство не подключается, ASUS советует выбрать <K>AES</K> или подключить его к IoT‑сети.
+  </Field>
+  <Field name="Network Password" aka="пароль Wi‑Fi, PSK" kind="text">
+    Пароль от Wi‑Fi. Длинная фраза из нескольких слов надёжнее короткого набора символов. Не повторяйте пароль от входа в роутер.
+  </Field>
+  <Field name="WiFi7 Mode" aka="Wi‑Fi 7" options={['ON', 'OFF']} recommended="ON">
+    Выключают, только если старое устройство не видит сеть или постоянно отваливается.
+  </Field>
+  <Field name="MLO Fronthaul for Clients" aka="MLO для устройств" options={['ON', 'OFF']}>
+    <T>MLO</T> в основной сети для устройств с Wi‑Fi 7. Подробнее — <Path items={['Wireless', 'MLO']} />.
+  </Field>
+  <Field name="WiFi Scheduling" aka="Wi‑Fi по расписанию" options={['ON', 'OFF']}>
+    Сеть работает только по расписанию (<K>Online schedule</K>).
+  </Field>
+  <Field name="Hide SSID" aka="скрытая сеть" options={['ON', 'OFF']} recommended="OFF">
+    Прячет имя из списка сетей. Защиты не даёт: ваши устройства всё равно называют имя сети, пока ищут её, и по этому их можно узнать вне дома. Со скрытой сетью не работает и <T>WPS</T>.
+  </Field>
+  <Field name="Set AP Isolated" aka="изоляция клиентов" options={['ON', 'OFF']} recommended="OFF">
+    Устройства в сети перестают видеть друг друга. В основной сети это ломает печать, AirPlay и Chromecast; для гостей удобнее отдельная сеть.
+  </Field>
+  <Field name="Enable MAC Filter" aka="фильтр по MAC" options={['Disable', 'Accept', 'Reject']} recommended="Disable">
+    Пускать только устройства из списка (<K>Accept</K>) или всех, кроме списка (<K>Reject</K>). Слабая защита: MAC легко подделать, а телефоны меняют его сами.
+  </Field>
+  <Field name="AdGuard / VPN" aka="фильтр, VPN для сети" options={['ON', 'OFF']}>
+    Свой профиль <Path items={['Parental Controls', 'AdGuard']} /> и VPN‑подключение из <Path items={['VPN', 'VPN Fusion']} /> для всей этой сети.
+  </Field>
+</Fields>
+
+## Add a Network
+
+Готовые типы дополнительных сетей. В мастере видны основные поля, остальные — под <K>More Config</K>.
+
+<Fields>
+  <Field name="Guest Network" aka="гостевая сеть">
+    Для гостей, на время или по расписанию: <K>WiFi Scheduling</K> здесь включено по умолчанию.
+  </Field>
+  <Field name="Kid's Network" aka="детская сеть">
+    Для детей: расписание и фильтры.
+  </Field>
+  <Field name="IoT Network" aka="сеть для умного дома">
+    Для телевизоров, камер, розеток и пылесосов.
+  </Field>
+  <Field name="VPN Network" aka="сеть через VPN">
+    Весь трафик этой сети идёт через VPN‑подключение из <Path items={['VPN', 'VPN Fusion']} />. Удобно для телевизора или приставки, на которые VPN не поставить.
+  </Field>
+  <Field name="Multi-Link Operation(MLO)" aka="MLO">
+    Отдельная сеть Wi‑Fi 7, см. <Path items={['Wireless', 'MLO']} />.
+  </Field>
+</Fields>
+
+<Fields>
+  <Field name="Use same subnet as main network" aka="общая подсеть" options={['ON', 'OFF']} recommended="OFF">
+    Главное поле для безопасности. Включено — устройства этой сети живут в одной подсети с основной и могут до неё добраться. Выключено — отдельная подсеть. В мастере IoT‑сети по умолчанию включено, в гостевом — выключено.
+  </Field>
+  <Field name="Bandwidth Limiter" aka="ограничение скорости" options={['ON', 'OFF']}>
+    Ограничить скорость всей сети (<K>Bandwidth Setting (Mb/s)</K>).
+  </Field>
+  <Field name="Sync to all AiMesh node(s)" aka="на всех узлах" options={['ON', 'OFF']}>
+    Сеть есть и на узлах <Path items={['AiMesh']} />, а не только на главном роутере.
+  </Field>
+</Fields>
+
+<Note tone="ok">
+  Отдельная сеть для умного дома — одна из самых полезных настроек роутера. Телевизоры и камеры плохо защищены и редко обновляются. В отдельной подсети они отрезаны от ваших компьютеров.
+</Note>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011433/", title: "Как изменить имя и пароль беспроводной сети", note: "asus.com · FAQ · оба варианта интерфейса" },
+    { href: "https://www.asus.com/ru/support/faq/1012132/", title: "Как настроить Smart Connect", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1042478/", title: "Что такое WPA3", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1053365/", title: "Совместимость роутера Wi‑Fi 7 со старыми устройствами", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1053554/", title: "Что такое Smart Home Master", note: "asus.com · FAQ · про RT-BE50" },
+    { href: "https://www.asus.com/ru/support/faq/1053665/", title: "Как настроить IoT-сеть", note: "asus.com · FAQ · про общую подсеть" },
+    { href: "https://www.asus.com/ru/support/faq/1053664/", title: "Как настроить Kid's Network", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/support/faq/1053666/", title: "How to set up VPN Network", note: "asus.com · FAQ · на английском" },
+  ]}
+  learn={[
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/15221-band-steering.html", title: "Band Steering", note: "support.netcraze.ru · Keenetic" },
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/14705-wpa3-owe-and-wpa-enterprise-wireless-security.html", title: "Защита WPA3, OWE и WPA Enterprise", note: "support.netcraze.ru · Keenetic" },
+    { href: "https://support.netcraze.ru/4g/nc-1213/ru/14628-network-segments.html", title: "Сегменты сети", note: "support.netcraze.ru · Keenetic · зачем делить сеть" },
+    { href: "https://support.netcraze.ru/4g/nc-1213/ru/15225-guest-network.html", title: "Гостевая сеть Wi‑Fi", note: "support.netcraze.ru · Keenetic" },
+    { href: "https://ru.wikipedia.org/wiki/WPA", title: "WPA", note: "ru.wikipedia.org" },
+    { href: "https://ru.wikipedia.org/wiki/SSID", title: "SSID", note: "ru.wikipedia.org" },
+  ]}
+  here={[
+    { href: "/wireless/general", title: "Wireless - General", note: "Каналы и ширина канала" },
+    { href: "/parental-controls/adguard", title: "Parental Controls - AdGuard", note: "Свой фильтр для каждой сети" },
+    { href: "/vpn/vpn-fusion", title: "VPN - VPN Fusion", note: "VPN для сети целиком" },
+  ]}
+/>

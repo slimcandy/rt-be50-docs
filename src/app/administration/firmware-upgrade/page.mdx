@@ -1,0 +1,47 @@
+export const metadata = {
+  title: 'Administration - Firmware Upgrade',
+  description:
+    'Обновление прошивки роутера ASUS RT-BE50: автообновление, обновления безопасности, ручная прошивка и режим восстановления.',
+}
+
+# Administration - Firmware Upgrade
+
+Обновление прошивки. Новые версии закрывают уязвимости, через которые взламывают роутеры, поэтому автообновление лучше держать включённым. Настройки при обновлении сохраняются. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus как обновить прошивку роутера', 'rt-be50 firmware', 'asus firmware restoration']}>
+  Прошивка, микропрограмма, firmware. Если обновление сорвалось, роутер сам переходит в режим восстановления (Rescue Mode, утилита Firmware Restoration).
+</HowToSearch>
+
+## Firmware Upgrade
+
+<Fields>
+  <Field name="Auto Firmware Upgrade" aka="автообновление" options={['ON', 'OFF']} recommended="ON">
+    Ставить новые версии автоматически в выбранный час, обычно ночью. Роутер на пару минут перезагрузится.
+  </Field>
+  <Field name="Security Upgrade" aka="обновления безопасности" options={['ON', 'OFF']} recommended="ON">
+    Срочные исправления безопасности автоматически. По отзывам пользователей (не по документации ASUS), выключается, если отозвать согласие в <Path items={['Administration', 'Policy']} />.
+  </Field>
+  <Field name="Firmware Version" aka="проверить обновление" kind="info" example="Check Update">
+    Текущая версия и кнопка <K>Check Update</K>.
+  </Field>
+  <Field name="AiMesh router" aka="прошивка файлом" kind="info" example="Upload">
+    Строка с моделью и кнопкой <K>Upload</K>: прошить файлом, скачанным с сайта ASUS для этой модели. Файл от другой модели не подойдёт. Если есть узлы AiMesh, у каждого своя строка.
+  </Field>
+</Fields>
+
+<Note tone="info">
+  В описаниях последних версий ASUS советует после обновления сбросить роутер к заводским настройкам, чтобы применились новые настройки безопасности. Перед этим перепишите главное: имя и пароль Wi‑Fi, тип подключения и логин провайдера. Восстановление из файла (<Path items={['Administration', 'Restore/Save/Upload Setting']} />) вернёт и старые настройки, ради сброса которых его делали. Откатываться на старую версию ASUS не советует.
+</Note>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1008000/', title: 'Как обновить прошивку роутера', note: 'asus.com · FAQ · авто и вручную' },
+    { href: 'https://www.asus.com/ru/support/faq/1010600/', title: 'Как вручную обновить прошивку', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1000814/', title: 'Режим восстановления (Firmware Restoration)', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/networking-iot-servers/wifi-7/all-series/rt-be50/helpdesk_bios/?model2Name=RT-BE50', title: 'RT-BE50: прошивки и описания версий', note: 'asus.com' },
+    { href: 'https://www.asus.com/content/asus-product-security-advisory/', title: 'ASUS Product Security Advisory', note: 'asus.com · на английском' },
+  ]}
+  here={[
+    { href: '/administration/system', title: 'Administration - System', note: 'Удалённый доступ и SSH' },
+  ]}
+/>

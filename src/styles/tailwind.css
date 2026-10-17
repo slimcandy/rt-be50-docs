@@ -1,0 +1,201 @@
+@import 'tailwindcss';
+
+/*
+  The guide copies the look of the router's own web UI (Asuswrt "New_ui"), so a
+  reader can keep it open next to the real router and recognise every screen.
+  Neutral colours are the router's hex values converted to OKLCH one to one.
+  Accents (selected menu item, hints, links, status colours) are pushed a little
+  into Display P3, so they read brighter on wide-gamut screens and fall back to
+  the nearest sRGB colour elsewhere.
+*/
+
+@theme {
+  --font-sans:
+    Arial, Helvetica, 'MS UI Gothic', 'MS P Gothic', 'Microsoft Yahei UI',
+    sans-serif;
+  --font-menu:
+    Verdana, 'MS UI Gothic', 'MS P Gothic', 'Microsoft Yahei UI', sans-serif;
+  --font-mono: 'Lucida Console', ui-monospace, Menlo, Consolas, monospace;
+
+  /* page and frame */
+  --color-page: oklch(31% 0.031 235.9); /* #21333e body */
+  --color-banner-a: oklch(33.7% 0.021 220.3); /* #2b3a3f */
+  --color-banner-b: oklch(20.1% 0.012 205.7); /* #101819 */
+  --color-banner-c: oklch(16.3% 0.008 211.2); /* #0a0f10 */
+  --color-status: oklch(27.6% 0.022 232.1); /* #1d2a31 */
+
+  /* left menu */
+  --color-menu: oklch(36.7% 0.009 219.7); /* #3a4042 */
+  --color-menu-line: oklch(54.1% 0.006 211); /* #6b7071 */
+  --color-menu-hover: oklch(70.1% 0.075 240.2); /* #77a5c6, P3 */
+  --color-menu-split: oklch(44.7% 0.011 222.2); /* #4e5659 */
+  --color-sel-a: oklch(71.2% 0.055 244.4); /* menuClicked gradient, P3 */
+  --color-sel-b: oklch(62.5% 0.08 245.3);
+  --color-sel-c: oklch(55.3% 0.095 245.3);
+  --color-sel-d: oklch(50.5% 0.105 248.9);
+  --color-sel-e: oklch(51.6% 0.115 247.5);
+
+  /* tabs and form */
+  --color-tab: oklch(34% 0.016 221.9); /* #2f3a3e */
+  --color-tab-active: oklch(45.5% 0.016 219.8); /* #4d595d */
+  --color-form-a: oklch(37.7% 0.021 225.8); /* #36444a */
+  --color-form-b: oklch(32.1% 0.017 227.2); /* #2a353a */
+  --color-th: oklch(34% 0.016 221.9); /* #2f3a3e */
+  --color-td: oklch(45.4% 0.025 215.5); /* #475a5f */
+  --color-cell-line: oklch(25.2% 0 0); /* #222 */
+  --color-thead-a: oklch(69.6% 0.018 221.2); /* #92a0a5 */
+  --color-thead-b: oklch(55.2% 0.021 227.6); /* #66757c */
+  --color-input: oklch(52.4% 0.028 214.5); /* #596e74 */
+  --color-input-line: oklch(69.8% 0.013 212); /* #929ea1 */
+  --color-split-a: oklch(33.9% 0.01 216.8); /* #32393b */
+  --color-split-b: oklch(56.1% 0.025 229.4); /* #667881 */
+  --color-well: oklch(25.6% 0.015 218); /* #1b2528 */
+
+  /* buttons */
+  --color-btn-a: oklch(31.2% 0.023 213.9); /* #233438 */
+  --color-btn-b: oklch(17.2% 0.003 248); /* #0f1011 */
+  --color-btn-hover-a: oklch(48.3% 0.13 245); /* #09639c, P3 */
+  --color-btn-hover-b: oklch(29.3% 0.07 236.2); /* #003047, P3 */
+
+  /* text and status */
+  --color-ink: oklch(100% 0 0);
+  --color-soft: oklch(87.7% 0.011 226); /* #cfd8dc */
+  --color-muted: oklch(77.3% 0.019 223.7); /* #a9b8be */
+  --color-faint: oklch(67.6% 0.019 223.7); /* #8b9aa0 */
+  --color-hint: oklch(88% 0.2 92); /* router's #ffcc00 hint text, P3 */
+  --color-ok: oklch(80% 0.2 145); /* P3 */
+  --color-bad: oklch(72% 0.2 22); /* P3 */
+  --color-link: oklch(80% 0.12 235); /* P3 */
+}
+
+@utility bg-banner {
+  background: linear-gradient(
+    var(--color-banner-a),
+    var(--color-banner-b) 60%,
+    var(--color-banner-c)
+  );
+}
+@utility bg-status {
+  background: linear-gradient(var(--color-status), var(--color-page));
+}
+@utility bg-selected {
+  background: linear-gradient(
+    var(--color-sel-a) 0%,
+    var(--color-sel-b) 44%,
+    var(--color-sel-c) 45%,
+    var(--color-sel-d) 46%,
+    var(--color-sel-e) 100%
+  );
+}
+@utility bg-form {
+  background: linear-gradient(
+    var(--color-form-a),
+    var(--color-form-b) 40px,
+    var(--color-form-b)
+  );
+}
+@utility bg-thead {
+  background: linear-gradient(var(--color-thead-a), var(--color-thead-b));
+}
+@utility bg-split {
+  background: linear-gradient(
+    90deg,
+    var(--color-split-a) 0%,
+    var(--color-split-a) 20%,
+    var(--color-split-b) 80%,
+    var(--color-split-b) 100%
+  );
+}
+@utility bg-btn {
+  background: linear-gradient(var(--color-btn-a), var(--color-btn-b));
+}
+@utility bg-btn-hover {
+  background: linear-gradient(
+    var(--color-btn-hover-a),
+    var(--color-btn-hover-b)
+  );
+}
+@utility text-emboss {
+  text-shadow: 1px 1px 0 black;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  body {
+    background: var(--color-page);
+    color: var(--color-ink);
+    font: 13px/1.5 var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-hint);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--color-sel-e);
+  }
+  [inert] ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+  Running text inside the form area, styled like the router's .formfontdesc.
+  Components (field tables, notes) opt out with .not-doc.
+*/
+@layer components {
+  .doc > p,
+  .doc > ul,
+  .doc > ol {
+    margin: 0 5px 10px;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  .doc > ul,
+  .doc > ol {
+    padding-left: 22px;
+  }
+  .doc > ul {
+    list-style: disc;
+  }
+  .doc > ol {
+    list-style: decimal;
+  }
+  .doc li {
+    margin: 3px 0;
+  }
+  .doc li::marker {
+    color: var(--color-faint);
+  }
+  .doc .lead {
+    font-size: 13px;
+    color: var(--color-ink);
+  }
+  .doc a:not(.not-doc a, .not-doc) {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklch, currentColor 40%, transparent);
+    text-underline-offset: 3px;
+  }
+  .doc a:not(.not-doc a, .not-doc):hover {
+    text-decoration-color: currentColor;
+  }
+  .doc strong {
+    font-weight: 700;
+  }
+  .doc code {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    background: var(--color-well);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+  .doc > h3 {
+    margin: 16px 5px 6px;
+    font-weight: 700;
+    font-size: 13px;
+    text-shadow: 1px 1px 0 black;
+  }
+}

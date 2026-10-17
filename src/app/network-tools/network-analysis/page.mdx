@@ -1,0 +1,42 @@
+export const metadata = {
+  title: 'Network Tools - Network Analysis',
+  description:
+    'Ping, traceroute и nslookup с самого роутера ASUS RT-BE50.',
+}
+
+# Network Tools - Network Analysis
+
+Проверка связи прямо с роутера: ping, traceroute и nslookup. Так видно, где проблема: в Wi‑Fi дома или дальше, у провайдера. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus сетевой анализ ping traceroute', 'traceroute как читать вывод']}>
+  Диагностика сети, сетевой анализ. Ping — «достучаться», traceroute — «путь до адреса», nslookup — «спросить адрес у DNS».
+</HowToSearch>
+
+## Network Analysis
+
+<Fields>
+  <Field name="Method" options={['Ping', 'Traceroute', 'Nslookup']}>
+    <K>Ping</K> — отвечает ли адрес и за сколько. <K>Traceroute</K> — через какие узлы идут пакеты. <K>Nslookup</K> — какой адрес возвращает DNS для имени.
+  </Field>
+  <Field name="Target" aka="адрес" kind="text" example="ya.ru">
+    Имя или адрес для проверки.
+  </Field>
+  <Field name="Count" aka="число попыток" kind="text" example="5">
+    Сколько раз повторить.
+  </Field>
+</Fields>
+
+<K>Nslookup</K> для рекламного домена — быстрый способ проверить, что DNS‑фильтр роутера работает: в ответ придёт `0.0.0.0` или пусто. Это проверка самого роутера. Устройство, у которого DNS вписан вручную, может ходить мимо.
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1011924/', title: 'Как сделать сетевой анализ (Ping, Traceroute, nslookup)', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1045249/', title: 'Как найти лучший DNS-сервер', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://habr.com/ru/articles/129627/', title: 'Traceroute: про умение читать вывод', note: 'habr.com' },
+    { href: 'https://ru.wikipedia.org/wiki/Ping', title: 'ping', note: 'ru.wikipedia.org' },
+    { href: 'https://ru.wikipedia.org/wiki/Traceroute', title: 'traceroute', note: 'ru.wikipedia.org' },
+    { href: 'https://ru.wikipedia.org/wiki/Nslookup', title: 'nslookup', note: 'ru.wikipedia.org' },
+  ]}
+/>

@@ -1,0 +1,108 @@
+export const metadata = {
+  title: 'Wireless - Professional',
+  description:
+    'Профессиональные настройки Wi‑Fi в роутере ASUS RT-BE50: какие из десятков полей стоит трогать, а какие оставить по умолчанию.',
+}
+
+# Wireless - Professional
+
+Тонкие настройки радио, отдельно для каждого диапазона. Сам роутер пишет здесь, что рекомендуются значения по умолчанию, и в большинстве случаев так и есть. {{ className: 'lead' }}
+
+На этой прошивке роутер показывает 17 полей. Ещё около тридцати есть в коде страницы, но скрыты; список — в конце. Имя сети, скрытие SSID, изоляция клиентов и режим Wi‑Fi 7 переехали в <Path items={['Network', 'Main Network']} />.
+
+<HowToSearch queries={["asus профессиональные настройки wi-fi", "airtime fairness включать или нет", "dtim interval что ставить"]}>
+  TWT — Target Wake Time. Agile Multiband — MBO, 802.11k/v. OFDMA и MU-MIMO — способы обслуживать много устройств сразу.
+</HowToSearch>
+
+## Диапазон и расписание
+
+<Fields>
+  <Field name="Band" options={['2.4 GHz', '5 GHz']}>
+    Какой диапазон редактируете. Все поля ниже относятся только к нему.
+  </Field>
+  <Field name="Enable Radio" aka="выключить Wi‑Fi диапазона" options={['Yes', 'No']} recommended="Yes">
+    Выключает диапазон целиком.
+  </Field>
+  <Field name="Enable wireless scheduler" aka="Wi‑Fi по расписанию" options={['Yes', 'No']}>
+    Включать и выключать Wi‑Fi по расписанию, например на ночь.
+  </Field>
+  <Field name="Tx power adjustment" aka="мощность передатчика" kind="info" example="Performance">
+    Ползунок мощности. Можно уменьшить в маленькой квартире, чтобы сеть меньше мешала соседям. Если устройства в дальней комнате теряют связь, верните на максимум.
+  </Field>
+</Fields>
+
+## Можно включить
+
+<Fields>
+  <Field name="Roaming assistant" aka="помощник роуминга" options={['Enable', 'Disable']}>
+    Отключает устройство со слабым сигналом (по умолчанию ниже −70 dBm), чтобы оно переподключилось к ближайшей точке. Смысл есть только в сети из нескольких точек: <Path items={['AiMesh']} />, роутер с точкой доступа или с репитером. С одним роутером оставьте выключенным.
+  </Field>
+  <Field name="WiFi Agile Multiband" aka="MBO, 802.11k/v" options={['Enable', 'Disable']}>
+    Подсказывает устройствам, когда лучше сменить диапазон или точку доступа (стандарты 802.11k/v). Обычно безопасно включить. Если умная техника начинает отваливаться, ASUS советует выключить его первым, вместе с TWT.
+  </Field>
+  <Field name="Target Wake Time" aka="TWT" options={['Enable', 'Disable']}>
+    Устройства с Wi‑Fi 6 и 7 договариваются с роутером, когда «спать». Экономит батарею телефонов и датчиков. Изредка умная техника с ним сбоит.
+  </Field>
+  <Field name="Airtime Fairness" aka="справедливое эфирное время" options={['Disable', 'Enable']}>
+    Медленное устройство не тормозит быстрые: каждому достаётся равное время в эфире, а не равный объём данных.
+  </Field>
+  <Field name="Enable IGMP Snooping" options={['Enable', 'Disable']}>
+    Нужно, если IPTV смотрят по Wi‑Fi: роутер не рассылает поток всем устройствам подряд.
+  </Field>
+</Fields>
+
+## Оставьте по умолчанию
+
+Эти поля управляют низкоуровневой работой радио. В домашней сети выигрыша от изменений почти не бывает, а сломать связь легко.
+
+<Fields>
+  <Field name="802.11b mode" options={['Disable', 'Long', 'Short']}>
+    Преамбула для самых старых устройств 802.11b, только на 2,4 ГГц.
+  </Field>
+  <Field name="RTS Threshold" kind="text" example="2347">
+    Размер, после которого перед отправкой кадра «просят слово». 2347 — фактически выключено.
+  </Field>
+  <Field name="DTIM Interval" kind="text" example="1">
+    Как часто роутер будит спящие устройства. Больше — дольше живёт батарея, но выше задержка.
+  </Field>
+  <Field name="Beacon Interval" kind="text" example="100">
+    Как часто (в миллисекундах) роутер объявляет о своей сети.
+  </Field>
+  <Field name="Enable WMM" options={['Enable']} recommended="Enable">
+    Приоритеты трафика в Wi‑Fi. Без него не работают современные скорости, поэтому вариант один.
+  </Field>
+  <Field name="Enable WMM No-Acknowledgement" options={['Disable', 'Enable']} recommended="Disable">
+    Не подтверждать доставку. Быстрее, но теряются данные.
+  </Field>
+  <Field name="Enable WMM APSD" options={['Disable', 'Enable']} recommended="Enable">
+    Энергосбережение для телефонов и ноутбуков.
+  </Field>
+  <Field name="OFDMA / MU-MIMO" aka="OFDMA, MU-MIMO" options={['Disable', 'DL OFDMA only', 'DL/UL OFDMA', 'DL/UL OFDMA + DL/UL MU-MIMO']}>
+    Деление канала между многими устройствами. Главная выгода Wi‑Fi 6 и 7 в квартире с десятками гаджетов.
+  </Field>
+</Fields>
+
+## Скрыто на этой прошивке
+
+Эти поля есть в коде страницы, но RT-BE50 с прошивкой 3.0.0.6.102_58636 их не показывает. Их описывают инструкции ASUS для других моделей, поэтому они встречаются в поиске: <K>Set AP Isolated</K>, <K>Max Number of Client Connection</K>, <K>Hide SSID</K>, <K>Wireless Mode</K>, <K>802.11ax / WiFi 6 mode</K>, <K>WiFi7 Mode</K>, <K>Bluetooth Coexistence</K>, <K>Multicast Rate(Mbps)</K>, <K>Fragmentation Threshold</K>, <K>AMPDU RTS</K>, <K>Enable TX Bursting</K>, <K>Enable Packet Aggregation</K>, <K>Enable WMM DLS</K>, <K>Enhanced interference management</K>, <K>Enable accurate traffic counter</K>, <K>Optimize AMPDU aggregation</K>, <K>Optimize ack suppression</K>, <K>Xtra Range 2.0</K>, <K>Turbo QAM</K>, <K>256-QAM Broadcom interoperability</K>, <K>IEEE 802.11h support</K>, <K>Multi-User MIMO</K>, <K>Explicit Beamforming</K>, <K>Universal Beamforming</K>, <K>Extended NSS</K>, <K>Agile DFS</K>, <K>Hardware WiFi Offloading</K>, <K>Region</K>.
+
+Часть из них на диапазоне 5 ГГц может появиться. Это проверено только для 2,4 ГГц.
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011438/", title: "Как выполнить профессиональные настройки беспроводной сети", note: "asus.com · FAQ · описание большинства полей" },
+    { href: "https://www.asus.com/ru/support/faq/1036730/", title: "Как включить Roaming Assistant", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1042471/", title: "Что такое Wi‑Fi Agile Multiband", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1042475/", title: "Совместимость умной техники с роутерами Wi‑Fi 6", note: "asus.com · FAQ · что выключить при проблемах" },
+    { href: "https://www.asus.com/ru/support/faq/1043425/", title: "Как выключать Wi‑Fi по расписанию", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1044821/", title: "Изоляция точки доступа", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/20208-what-you-need-to-know-about-wi-fi-6--ieee-802-11ax-.html", title: "Что нужно знать о Wi‑Fi 6: TWT, OFDMA, MU-MIMO", note: "support.netcraze.ru · Keenetic" },
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/20433-beamforming-technology.html", title: "Технология Beamforming", note: "support.netcraze.ru · Keenetic" },
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/51133-changing-the-signal-power-level-in-wireless-network-settings.html", title: "Мощность сигнала Wi‑Fi", note: "support.netcraze.ru · Keenetic · проценты и дБм" },
+    { href: "https://habr.com/ru/specials/449116/", title: "Wi‑Fi 6: что у 802.11ax внутри", note: "habr.com" },
+    { href: "https://ru.wikipedia.org/wiki/Wi-Fi_Multimedia", title: "Wi‑Fi Multimedia (WMM)", note: "ru.wikipedia.org" },
+    { href: "https://ru.wikipedia.org/wiki/RTS/CTS", title: "RTS/CTS", note: "ru.wikipedia.org" },
+  ]}
+/>

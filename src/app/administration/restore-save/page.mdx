@@ -1,0 +1,41 @@
+export const metadata = {
+  title: 'Administration - Restore/Save/Upload Setting',
+  description:
+    'Сохранение и восстановление настроек роутера ASUS RT-BE50 и сброс к заводским.',
+}
+
+# Administration - Restore/Save/Upload Setting
+
+Сброс к заводским настройкам, сохранение всех настроек в файл и восстановление из файла. Сохраните файл сейчас: если что-то сломается, вернуть всё можно за минуту. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus сохранить файл конфигурации роутера', 'asus сброс к заводским настройкам']}>
+  Резервная копия настроек, бэкап, файл конфигурации (`Settings_RT-BE50.CFG`). Сброс — factory reset, заводские настройки.
+</HowToSearch>
+
+## Settings
+
+<Fields>
+  <Field name="Factory default" aka="сброс к заводским" kind="info" example="Restore">
+    Стирает все настройки, а также содержимое и журналы («while clearing all content and data logs»). Сброс можно сделать и кнопкой RESET на корпусе: держать 5–10 секунд.
+  </Field>
+  <Field name="Save setting" aka="сохранить настройки" kind="info" example="Save setting">
+    Скачать файл со всеми настройками. Есть флажок, чтобы не сохранять в файл пароли. Файл подходит только для этой модели, лучше на той же версии прошивки.
+  </Field>
+  <Field name="Restore setting" aka="восстановить из файла" kind="info" example="Upload">
+    Загрузить файл обратно. Роутер перезагрузится примерно через минуту.
+  </Field>
+</Fields>
+
+<Note>
+  Если подозреваете взлом, не восстанавливайте настройки из файла: вместе с ними может вернуться и то, что оставил взломщик. Настройте роутер заново.
+</Note>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1001376/', title: 'Как сохранить и загрузить файл конфигурации', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1000925/', title: 'Как вернуть роутер к заводским настройкам', note: 'asus.com · FAQ' },
+  ]}
+  here={[
+    { href: '/administration/firmware-upgrade', title: 'Administration - Firmware Upgrade', note: 'Сброс после обновления' },
+  ]}
+/>

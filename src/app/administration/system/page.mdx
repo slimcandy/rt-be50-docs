@@ -1,0 +1,118 @@
+export const metadata = {
+  title: 'Administration - System',
+  description:
+    'Системные настройки роутера ASUS RT-BE50: пароль входа, время, SSH, HTTPS и удалённый доступ — что включить для безопасности.',
+}
+
+# Administration - System
+
+Пароль входа в роутер, время, удалённый доступ, SSH. Самая важная страница для безопасности самого роутера: через удалённый доступ и SSH в 2025 году взломали десятки тысяч роутеров ASUS. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus изменить пароль роутера', 'asus веб-доступ из wan отключить', 'AyySSHush asus']}>
+  Логин и пароль роутера (не Wi‑Fi!), удалённое управление (remote management, веб‑доступ из WAN), служба SSH, сервер времени NTP.
+</HowToSearch>
+
+## Router Account
+
+<Fields>
+  <Field name="Router Login Name" aka="логин роутера" kind="text">
+    Имя для входа в настройки. Своё имя вместо `admin` чуть усложняет подбор.
+  </Field>
+  <Field name="Router Login Password" aka="пароль роутера" kind="text" example="••••••••••••">
+    Пароль входа в настройки. Длинный и не такой, как у Wi‑Fi: пароль Wi‑Fi знают гости. Забыли — поможет только сброс к заводским.
+  </Field>
+  <Field name="Enable Login Captcha" aka="капча" options={['Yes', 'No']} recommended="Yes">
+    Капча после неудачной попытки входа мешает подбирать пароль.
+  </Field>
+</Fields>
+
+## Basic Config
+
+<Fields>
+  <Field name="Time Zone" aka="часовой пояс" kind="info" example="(GMT+03:00)">
+    Часовой пояс. От правильного времени зависят расписания, журналы и проверка сертификатов зашифрованного DNS.
+  </Field>
+  <Field name="DST" aka="летнее время">
+    В России летнее время не используется с 2014 года: если для вашего пояса появился флажок перехода на летнее время, выключите его.
+  </Field>
+  <Field name="NTP Server" aka="сервер времени" kind="text" example="pool.ntp.org">
+    Откуда роутер берёт точное время. Значение по умолчанию подходит.
+  </Field>
+  <Field name="Network Monitoring" aka="проверка интернета" kind="check" options={['DNS Query', 'Ping']}>
+    Как роутер проверяет, есть ли интернет. От этого зависит и синхронизация времени.
+  </Field>
+  <Field name="Auto Logout" aka="автовыход" kind="text" example="30">
+    Через сколько минут бездействия выйти из настроек.
+  </Field>
+  <Field name="WPS Button behavior" aka="кнопка WPS" options={['Activate WPS', 'Toggle Radio', 'Turn LED On/Off']}>
+    Что делает кнопка на корпусе. Если WPS выключен (<Path items={['Wireless', 'WPS']} />), кнопке можно дать другое дело: включать и выключать Wi‑Fi или подсветку.
+  </Field>
+  <Field name="Enable Reboot Scheduler" aka="перезагрузка по расписанию" options={['Yes', 'No']}>
+    Перезагружать роутер в выбранные дни (<K>Day(s) to Reboot</K>) в заданное время (<K>Time to Reboot</K>). Если роутер «сам» перезагружается, проверьте эту настройку и автообновление прошивки.
+  </Field>
+</Fields>
+
+## Service
+
+<Fields>
+  <Field name="Enable Telnet" options={['Yes', 'No']} recommended="No">
+    Вход в командную строку роутера без шифрования. Не включайте.
+  </Field>
+  <Field name="Enable SSH" options={['No', 'LAN only', 'LAN & WAN']} recommended="No">
+    Вход в командную строку с шифрованием. Нужен только тем, кто знает, зачем. Если нужен — <K>LAN only</K>, вход по ключу, <K>Allow Password Login</K> выключить. Порт задаёт <K>SSH Port</K>.
+  </Field>
+  <Field name="Authorized Keys" aka="ключи SSH" kind="text">
+    Ключи, с которыми пускают по SSH. Здесь не должно быть ничего чужого. Чужой ключ и SSH на порту `53282` — признак взлома кампанией AyySSHush. Тогда нужен сброс к заводским: обновление прошивки такой ключ не удаляет.
+  </Field>
+</Fields>
+
+## Local Access Config
+
+<Fields>
+  <Field name="Authentication Method" aka="HTTP или HTTPS" options={['HTTP', 'HTTPS', 'BOTH']} recommended="HTTPS">
+    Как открывать настройки внутри дома. С HTTPS пароль не идёт по сети открытым текстом. Браузер предупредит о самоподписанном сертификате: это нормально, предупреждение можно принять или установить сертификат роутера.
+  </Field>
+  <Field name="HTTPS LAN port" kind="text" example="8443">
+    Порт страницы настроек по HTTPS. Отсюда адрес вида `https://192.168.50.1:8443`.
+  </Field>
+</Fields>
+
+## Remote Access Config
+
+<Fields>
+  <Field name="Enable Web Access from WAN" aka="удалённое управление, доступ из интернета" options={['Yes', 'No']} recommended="No">
+    Открывает страницу настроек всему интернету. Именно так ботнеты захватывают роутеры ASUS. Нужен доступ к роутеру не из дома — заходите через VPN (<Path items={['VPN', 'VPN Server']} />) или приложение ASUS Router.
+  </Field>
+  <Field name="Enable Access Restrictions" aka="Specified IP, белый список адресов" options={['Yes', 'No']}>
+    Пускать в настройки только с перечисленных адресов. Полезно, если удалённый доступ всё-таки включён.
+  </Field>
+</Fields>
+
+<Note tone="bad">
+  Если удалённый доступ или SSH из интернета были включены, проверьте <K>Authorized Keys</K> и порт SSH, обновите прошивку и задайте новый пароль. Есть сомнения — сделайте сброс к заводским и настройте роутер заново, без восстановления из файла.
+</Note>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1039292/', title: 'Как улучшить безопасность роутера и защитить домашнюю Wi‑Fi сеть', note: 'asus.com · FAQ · чеклист ASUS' },
+    { href: 'https://www.asus.com/ru/support/faq/1047761/', title: 'Как изменить имя пользователя и пароль роутера', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1000926/', title: 'Веб-доступ из WAN', note: 'asus.com · FAQ · только HTTPS, не работает за CGNAT' },
+    { href: 'https://www.asus.com/ru/support/faq/1048201/', title: 'Вход в роутер через Telnet и SSH', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1045854/', title: 'Вход в настройки по HTTPS', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1048212/', title: 'Системное время и NTP', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1049258/', title: 'Перезагрузка по расписанию', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/content/asus-product-security-advisory/', title: 'ASUS Product Security Advisory', note: 'asus.com · уязвимости и исправления · на английском' },
+  ]}
+  learn={[
+    { href: 'https://3dnews.ru/1123642/v-tisyachah-routerov-asus-obnarugilsya-nevidimiy-i-stoykiy-bekdor', title: 'В тысячах роутеров Asus обнаружился невидимый и стойкий бэкдор', note: '3dnews.ru · 2025 · про AyySSHush' },
+    { href: 'https://3dnews.ru/1124004/asus-predlogila-sposobi-izbavitsya-ot-bekdorov-na-marshrutizatorah', title: 'Asus предложила способы избавиться от бэкдоров', note: '3dnews.ru · что делать' },
+    { href: 'https://xakep.ru/2025/11/20/wrthug/', title: '50 000 роутеров Asus взломаны в рамках кампании WrtHug', note: 'xakep.ru · 2025' },
+    { href: 'https://www.greynoise.io/blog/stealthy-backdoor-campaign-affecting-asus-routers', title: 'Stealthy Backdoor Campaign Affecting ASUS Routers', note: 'greynoise.io · первоисточник · на английском' },
+    { href: 'https://habr.com/ru/articles/802179/', title: 'Знакомство с SSH', note: 'habr.com · вход по ключу' },
+    { href: 'https://ru.wikipedia.org/wiki/Время_в_России', title: 'Время в России', note: 'ru.wikipedia.org · про летнее время' },
+  ]}
+  here={[
+    { href: '/administration/firmware-upgrade', title: 'Administration - Firmware Upgrade', note: 'Обновления закрывают уязвимости' },
+    { href: '/checklist', title: 'Чеклист приватности и безопасности', note: 'Всё по безопасности в одном месте' },
+  ]}
+/>

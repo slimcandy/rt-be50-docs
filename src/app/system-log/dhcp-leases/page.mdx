@@ -1,0 +1,18 @@
+export const metadata = {
+  title: 'System Log - DHCP leases',
+  description:
+    'Список выданных адресов в роутере ASUS RT-BE50.',
+}
+
+# System Log - DHCP leases
+
+Кому какой адрес выдал <T>DHCP</T> и на сколько. Здесь удобно найти адрес телевизора или камеры, чтобы потом закрепить его в <Path items={['LAN', 'DHCP Server']} />. {{ className: 'lead' }}
+
+<Related
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/DHCP', title: 'DHCP', note: 'ru.wikipedia.org' },
+  ]}
+  here={[
+    { href: '/lan/dhcp-server', title: 'LAN - DHCP Server', note: 'Закрепить адрес за устройством' },
+  ]}
+/>

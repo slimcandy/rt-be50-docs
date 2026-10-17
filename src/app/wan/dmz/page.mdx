@@ -1,0 +1,38 @@
+export const metadata = {
+  title: 'WAN - DMZ',
+  description:
+    'DMZ в роутере ASUS RT-BE50: что значит выставить устройство в интернет и почему это опасно.',
+}
+
+# WAN - DMZ
+
+Все входящие подключения, которые не попали под другие правила, роутер отдаёт одному устройству. Оно оказывается в интернете почти без защиты. Это не «демилитаризованная зона» из офисных сетей, а грубый способ «открыть всё». {{ className: 'lead' }}
+
+<Note tone="bad">
+  Устройство в DMZ доступно из интернета на всех портах. Иногда так делают для игровой приставки, но лучше открыть только нужные порты: <Path items={['WAN', 'Virtual Server / Port Forwarding']} />.
+</Note>
+
+<HowToSearch queries={["dmz в роутере что это опасно"]}>
+  DMZ‑хост, exposed host, «открыть все порты на один компьютер».
+</HowToSearch>
+
+## DMZ
+
+<Fields>
+  <Field name="Enable DMZ" options={['Yes', 'No']} recommended="No">
+    Включает DMZ.
+  </Field>
+  <Field name="IP Address of Exposed Station" aka="открытое устройство" kind="text">
+    Адрес устройства, которое окажется снаружи. Закрепите его в <Path items={['LAN', 'DHCP Server']} />, иначе однажды снаружи окажется другое устройство, получившее этот адрес.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011723/", title: "Введение в DMZ и настройка", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1039292/", title: "Как улучшить безопасность роутера", note: "asus.com · FAQ · про риск DMZ" },
+  ]}
+  learn={[
+    { href: "https://ru.wikipedia.org/wiki/DMZ_(компьютерные_сети)", title: "DMZ (компьютерные сети)", note: "ru.wikipedia.org · настоящая DMZ и «DMZ-хост»" },
+  ]}
+/>

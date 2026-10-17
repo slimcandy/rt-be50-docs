@@ -1,0 +1,42 @@
+export const metadata = {
+  title: 'Wireless - MLO',
+  description:
+    'MLO (Multi-Link Operation) в роутере ASUS RT-BE50: что даёт Wi‑Fi 7 и нужно ли его включать.',
+}
+
+# Wireless - MLO
+
+<T>MLO</T> — главная новинка Wi‑Fi 7: устройство держит связь сразу в двух диапазонах (2,4 и 5 ГГц) и переключается между ними без обрывов. Выигрыш в задержке и стабильности, а не в рекордной скорости. Работает только для устройств с Wi‑Fi 7. {{ className: 'lead' }}
+
+<Note tone="info">
+  MLO создаётся как отдельная сеть со своим именем. Тот же профиль виден в <Path items={['Network']} />.
+</Note>
+
+<HowToSearch queries={["wi-fi 7 mlo что это", "mlo str emlsr разница"]}>
+  MLO, Multi-Link Operation, многоканальная работа. Режимы STR и eMLSR — одновременная работа в двух диапазонах или быстрое переключение между ними.
+</HowToSearch>
+
+## MLO
+
+<Fields>
+  <Field name="Add a Network" aka="создать MLO-сеть" kind="info">
+    Создаёт MLO‑сеть: имя, пароль, диапазоны. Защита только <T>WPA3</T>, поэтому старые устройства к ней не подключатся. Им оставьте основную сеть.
+  </Field>
+</Fields>
+
+Общий переключатель MLO на этой вкладке включён по умолчанию: он нужен и для связи узлов AiMesh по MLO. Совет «не нужно» относится к созданию отдельной MLO‑сети: если у вас нет устройств с Wi‑Fi 7 (в характеристиках пишут «Wi‑Fi 7» или «802.11be»), она ни к чему. Одновременно работает только один набор MLO‑сетей.
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1053342/", title: "Что такое MLO и как оно работает", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1053365/", title: "Совместимость Wi‑Fi 7 со старыми устройствами и AiMesh", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://support.netcraze.ru/ultra/nc-1812/ru/51132-what-you-need-to-know-about-wi-fi-7--ieee-802-11be-.html", title: "Базовые положения стандарта Wi‑Fi 7", note: "support.netcraze.ru · Keenetic" },
+    { href: "https://wireless-e.ru/standarty/wi-fi-7-chast-1/", title: "Wi‑Fi 7: новые вызовы и возможности", note: "wireless-e.ru · технический разбор" },
+    { href: "https://blogs.cisco.com/networking/wi-fi-7s-multi-link-operation-mlo-dissection-from-packets-to-performance", title: "Wi‑Fi 7 MLO explained", note: "blogs.cisco.com · на английском" },
+  ]}
+  here={[
+    { href: "/network", title: "Network", note: "MLO‑сеть как профиль" },
+  ]}
+/>

@@ -1,0 +1,18 @@
+export const metadata = {
+  title: 'System Log - Connections',
+  description:
+    'Активные соединения в роутере ASUS RT-BE50: кто куда подключён.',
+}
+
+# System Log - Active Connections
+
+Все активные соединения через роутер: какое устройство к какому адресу и порту обращается. Здесь видно, если устройство идёт к DNS‑серверу напрямую (порт 53, адрес вроде `8.8.8.8`), мимо фильтра роутера. {{ className: 'lead' }}
+
+<Related
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/Netfilter', title: 'Netfilter', note: 'ru.wikipedia.org · откуда берётся список соединений' },
+  ]}
+  here={[
+    { href: '/checklist', title: 'Чеклист приватности и безопасности', note: 'Проверить, что фильтр не обходят' },
+  ]}
+/>

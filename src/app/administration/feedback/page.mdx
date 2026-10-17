@@ -1,0 +1,35 @@
+export const metadata = {
+  title: 'Administration - Feedback',
+  description:
+    'Отправка отчёта о проблеме в ASUS из роутера RT-BE50: что уходит вместе с отчётом.',
+}
+
+# Administration - Feedback
+
+Отправка отчёта о проблеме прямо в ASUS. Вместе с ним всегда уходят модель, версия прошивки, MAC‑ и IP‑адреса и состояние интернета. По флажкам можно приложить журналы и файл настроек. Пользуйтесь, когда действительно разбираетесь с поддержкой. {{ className: 'lead' }}
+
+## Feedback
+
+<Fields>
+  <Field name="Special options" aka="журналы для поддержки" kind="check" options={['Generate downloadable logs as ASUS support requested']}>
+    Собрать журналы, которые запросила поддержка ASUS.
+  </Field>
+  <Field name="Extra information for debugging" aka="приложить" kind="check" options={['Setting file', 'WiFi Log']}>
+    Приложить файл настроек и журнал Wi‑Fi. В файле настроек — вся конфигурация вашей сети.
+  </Field>
+  <Field name="Enable System Diagnostics" options={['Yes', 'No']}>
+    Дополнительная диагностика для поддержки.
+  </Field>
+  <Field name="Feedback problem type / Feedback problem description" aka="описание проблемы" kind="text">
+    Тип и описание проблемы, до 2000 символов. Роутер предупреждает, что индивидуальных ответов нет: за помощью — в поддержку ASUS.
+  </Field>
+</Fields>
+
+Вместо этой формы можно сохранить журнал самому (<Path items={['System Log', 'General Log']} />) и отправить его в поддержку. Тогда вы видите, что именно отдаёте.
+
+<Related
+  official={[
+    { href: 'https://demoui.asus.com/Advanced_Feedback.asp', title: 'Демо интерфейса: Administration › Feedback', note: 'demoui.asus.com · другая модель · на английском' },
+    { href: 'https://www.asus.com/ru/support/faq/1044954/', title: 'Как сохранить системный журнал', note: 'asus.com · FAQ' },
+  ]}
+/>

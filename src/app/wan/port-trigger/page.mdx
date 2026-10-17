@@ -1,0 +1,39 @@
+export const metadata = {
+  title: 'WAN - Port Trigger',
+  description:
+    'Port Trigger в роутере ASUS RT-BE50: временное открытие портов и чем это отличается от проброса.',
+}
+
+# WAN - Port Trigger
+
+Порт открывается снаружи только на время: после того как устройство в доме само обратилось к «триггерному» порту. Старый механизм для отдельных программ. Сегодня почти всегда хватает <Path items={['WAN', 'Virtual Server / Port Forwarding']} />, а часто не нужно и это. {{ className: 'lead' }}
+
+<HowToSearch queries={["port triggering что это отличие от проброса портов"]}>
+  Port Triggering, в русском интерфейсе ASUS — «Переключатель портов».
+</HowToSearch>
+
+## Port Trigger
+
+<Fields>
+  <Field name="Enable Port Trigger" options={['Yes', 'No']} recommended="No">
+    Включает правила ниже.
+  </Field>
+  <Field name="Well-Known Applications" aka="шаблоны" options={['Please select', 'Quicktime 4 Client', 'Real Audio']}>
+    Готовые правила для давно устаревших программ.
+  </Field>
+  <Field name="Trigger Port / Incoming Port / Protocol" aka="строка правила" kind="text">
+    Когда устройство обратилось на <K>Trigger Port</K>, роутер на время открывает ему <K>Incoming Port</K>. Одновременно правило работает только для одного устройства.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/114110/", title: "Описание и настройка переключателя портов", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://en.wikipedia.org/wiki/Port_triggering", title: "Port triggering", note: "en.wikipedia.org · на английском" },
+  ]}
+  here={[
+    { href: "/wan/port-forwarding", title: "WAN - Virtual Server / Port Forwarding", note: "Постоянный проброс" },
+  ]}
+/>

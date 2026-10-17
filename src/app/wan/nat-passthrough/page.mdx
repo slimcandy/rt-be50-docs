@@ -1,0 +1,49 @@
+export const metadata = {
+  title: 'WAN - NAT Passthrough',
+  description:
+    'NAT Passthrough в роутере ASUS RT-BE50: какие протоколы пропускать через NAT и что можно выключить.',
+}
+
+# WAN - NAT Passthrough
+
+Некоторые протоколы плохо проходят через <T>NAT</T>: старые VPN и протоколы, которые сами передают внутри себя адреса и порты (IP‑телефония, видеопотоки, FTP). Эти переключатели помогают им пройти. Речь о подключениях *из дома наружу*, входящих дверей они не открывают. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus nat passthrough что это", "sip alg роутер отключить"]}>
+  Сквозная передача NAT, VPN Passthrough. RTSP, H.323, SIP и FTP здесь — это ALG (Application Level Gateway), «помощники» NAT.
+</HowToSearch>
+
+## NAT Passthrough
+
+<Fields>
+  <Field name="PPTP Passthrough" options={['Disable', 'Enable']}>
+    Старый и небезопасный VPN. Если никто дома им не пользуется, можно выключить.
+  </Field>
+  <Field name="L2TP Passthrough" options={['Disable', 'Enable']}>
+    VPN по L2TP. Оставьте, если такой VPN нужен для работы.
+  </Field>
+  <Field name="IPSec Passthrough" options={['Disable', 'Enable']} recommended="Enable">
+    Многие рабочие VPN работают на IPsec. Оставьте включённым.
+  </Field>
+  <Field name="RTSP Passthrough" options={['Disable', 'Enable']}>
+    Видеопотоки, например с камер.
+  </Field>
+  <Field name="H.323 Passthrough / SIP Passthrough" aka="IP-телефония, VoIP" options={['Disable', 'Enable']}>
+    Видеосвязь и IP‑телефония по старым стандартам. Если IP‑телефон ведёт себя странно (нет звука в одну сторону), попробуйте переключить <K>SIP Passthrough</K>.
+  </Field>
+  <Field name="PPPoE Relay" options={['Disable', 'Enable']} recommended="Disable">
+    Пропустить PPPoE провайдера в домашнюю сеть: компьютер или NAS сам подключается и получает внешний адрес, минуя защиту роутера. Провайдер должен разрешать второе подключение по договору. Почти никогда не нужно.
+  </Field>
+  <Field name="FTP ALG port" kind="text" example="2021">
+    Порт помощника для старого протокола FTP.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011727/", title: "NAT Passthrough: введение", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1046368/", title: "Как настроить PPPoE Relay", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://ru.wikipedia.org/wiki/Application-level_gateway", title: "Application-level gateway", note: "ru.wikipedia.org" },
+  ]}
+/>

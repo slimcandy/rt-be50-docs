@@ -1,0 +1,129 @@
+export const metadata = {
+  title: 'WAN - Internet Connection',
+  description:
+    'Подключение к интернету в роутере ASUS RT-BE50: тип подключения (IPoE, PPPoE, L2TP), UPnP, DNS и шифрование DNS-over-TLS.',
+}
+
+# WAN - Internet Connection
+
+Как роутер подключается к провайдеру и через какие <T>DNS</T>‑серверы узнаёт адреса сайтов. Тип подключения и логин дал провайдер: он написан в договоре или на сайте провайдера. {{ className: 'lead' }}
+
+<Note tone="bad">
+  Неверный <K>WAN Connection Type</K> или чужой <K>MAC Address</K> — и интернета не будет. Перед изменениями запишите текущие значения.
+</Note>
+
+<HowToSearch queries={["какой тип подключения у провайдера pppoe l2tp ipoe", "asus dns over tls настройка", "upnp роутер опасно"]}>
+  Тип подключения: <K>Automatic IP</K> = DHCP = IPoE = «динамический IP». Шифрование DNS: DNS‑over‑TLS, DoT, порт 853, «приватный DNS». UPnP — автоматический проброс портов. MAC Clone — клонирование MAC.
+</HowToSearch>
+
+## Basic Config
+
+<Fields>
+  <Field name="WAN Connection Type" aka="тип подключения" options={['Automatic IP', 'Static IP', 'PPPoE', 'PPTP', 'L2TP']}>
+    <K>Automatic IP</K> — адрес выдаёт провайдер сам (у провайдеров это называют IPoE или «динамический IP»), подходит и когда перед роутером стоит модем провайдера. <K>PPPoE</K> — вход по логину и паролю из договора. <K>Static IP</K> — постоянный адрес, все параметры даёт провайдер. <K>PPTP</K> и <K>L2TP</K> — подключение через VPN‑сервер провайдера. Технология старая, но работает: например, Билайн до сих пор подключает по L2TP. Правильный тип мастер быстрой настройки определяет сам.
+  </Field>
+  <Field name="Enable WAN" options={['Yes', 'No']} recommended="Yes">
+    Выключатель интернета.
+  </Field>
+  <Field name="Enable NAT" options={['Yes', 'No']} recommended="Yes">
+    Трансляция адресов: все устройства дома выходят в интернет под одним адресом роутера. Выключают, только если роутер стоит внутри чужой сети как простой маршрутизатор.
+  </Field>
+  <Field name="Enable UPnP" aka="автоматический проброс портов" options={['Yes', 'No']} recommended="No">
+    Программы и приставки сами открывают себе порты снаружи. Удобно для игр и торрентов, но так же порт может открыть и вредоносная программа или взломанная камера, без пароля и без спроса. По умолчанию у ASUS включено; сама ASUS в советах по безопасности предлагает выключить. С серым адресом UPnP всё равно бесполезен.
+  </Field>
+  <Field name="VLAN ID / 802.1P" aka="тег VLAN" options={['Yes', 'No']}>
+    Метка VLAN на интернет‑порту. Нужна, только если провайдер требует.
+  </Field>
+  <Field name="Get the WAN IP automatically" options={['Yes', 'No']}>
+    Получать ли адрес автоматически при <K>PPPoE</K>, <K>PPTP</K> и <K>L2TP</K>. Если провайдер выдал фиксированный адрес, выберите <K>No</K> и впишите адрес, маску и шлюз.
+  </Field>
+</Fields>
+
+## WAN DNS Setting
+
+DNS переводит имена сайтов в адреса. По умолчанию роутер берёт DNS провайдера, и провайдер видит каждый сайт, к которому обращаются ваши устройства. Здесь можно выбрать другой DNS и зашифровать запросы.
+
+<Fields>
+  <Field name="DNS Server" aka="Connect to DNS Server automatically" kind="info" example="Assign">
+    Кнопка <K>Assign</K> открывает выбор: брать DNS у провайдера (<K>Yes</K>) или вписать свои адреса (<K>No</K>, затем <K>DNS Server 1</K> и <K>DNS Server 2</K>).
+  </Field>
+  <Field name="DNS Privacy Protocol" aka="DoT, DNS-over-TLS, шифрование DNS" options={['None', 'DNS-over-TLS (DoT)']} recommended="DNS-over-TLS (DoT)">
+    Роутер шифрует свои запросы к DNS‑серверу. Провайдер перестаёт видеть, какие имена вы спрашиваете. Адреса, к которым вы потом подключаетесь, он видит по‑прежнему.
+  </Field>
+  <Field name="DNS-over-TLS Profile" options={['Strict', 'Opportunistic']}>
+    <K>Strict</K> — только шифрованный DNS: если сервер недоступен, сайты не открываются. <K>Opportunistic</K> — при сбое роутер молча возвращается к обычному DNS. Strict надёжнее для приватности, Opportunistic — для работы интернета.
+  </Field>
+  <Field name="Preset servers" aka="готовые серверы" options={['Cloudflare', 'Google', 'Quad9', 'CleanBrowsing', 'Control D', 'DNS4EU']}>
+    Готовые серверы с шифрованием. Варианты с пометками Security, Family, Adult filter и т. п. дополнительно блокируют опасные или взрослые сайты. AdGuard DNS в списке нет, его вписывают вручную или подключают через <Path items={['Parental Controls', 'AdGuard']} />.
+  </Field>
+  <Field name="DNS-over-TLS Server List" aka="IP, порт, имя сервера" kind="text" example="IP · 853 · hostname">
+    Свой сервер: адрес, порт (обычно 853), имя для проверки сертификата. До 8 серверов.
+  </Field>
+  <Field name="Prevent client auto DoH" aka="запрет автоматического DoH" options={['Auto', 'Yes', 'No']}>
+    Браузеры умеют шифровать DNS сами (DoH) и тогда идут мимо роутера и его фильтров. Роутер может попросить их этого не делать. По умолчанию стоит <K>Auto</K>: просьба включается, когда включено шифрование DNS на роутере. DoH, включённый в браузере вручную, это не отключает.
+  </Field>
+  <Field name="Enable DNS Rebind protection" options={['Yes', 'No']} recommended="Yes">
+    Не принимать от внешнего DNS ответы с домашними адресами. Защищает роутер и умную технику от атаки DNS rebinding через сайты. Изредка мешает рабочим сетям, где внешний DNS отвечает внутренними адресами.
+  </Field>
+  <Field name="Forward local domain queries to upstream DNS" options={['Yes', 'No']} recommended="No">
+    Отправлять наружу запросы к коротким домашним именам (`nas`, `printer`). Наружу им незачем.
+  </Field>
+  <Field name="Enable DNSSEC support" aka="DNSSEC" options={['Yes', 'No']}>
+    Проверка подписи DNS‑ответов. Если выбранный DNS‑сервер DNSSEC не поддерживает, перестанут открываться все сайты. При DoT поле может быть скрыто: проверку делает сервер.
+  </Field>
+</Fields>
+
+## Account Settings и требования провайдера
+
+<Fields>
+  <Field name="User Name / Password" aka="логин и пароль PPPoE" kind="text">
+    Только для <K>PPPoE</K>, <K>PPTP</K>, <K>L2TP</K>: данные из договора. Для PPTP и L2TP ещё нужен адрес сервера провайдера в поле <K>VPN Server</K>.
+  </Field>
+  <Field name="Enable VPN + DHCP Connection" aka="двойной доступ" options={['Yes', 'No']}>
+    Для PPPoE: одновременно с интернетом получать адрес в локальной сети провайдера. Нужно провайдерам, у которых внутренние ресурсы (личный кабинет, локальные сервисы) доступны без PPPoE.
+  </Field>
+  <Field name="MAC Address" aka="клонирование MAC" kind="text">
+    Некоторые провайдеры пускают в интернет только устройство с известным им MAC. Тогда либо просят провайдера перепривязать MAC, либо кнопкой <K>MAC Clone</K> дают роутеру MAC компьютера, который был подключён раньше. MAC телефона не подойдёт: телефоны меняют его сами. Без такой привязки не трогайте.
+  </Field>
+  <Field name="Host Name" kind="text">
+    Имя, которое роутер сообщает провайдеру при получении адреса. Обычно пусто.
+  </Field>
+  <Field name="DHCP query frequency" options={['Normal Mode', 'Aggressive Mode', 'Continuous Mode']}>
+    Как настойчиво запрашивать адрес у провайдера. По умолчанию <K>Aggressive Mode</K>. Если модем провайдера не отвечает или выдаёт неверный адрес, ASUS советует <K>Normal Mode</K> или <K>Continuous Mode</K>.
+  </Field>
+  <Field name="Internet Detection" aka="проверка интернета" options={['Disable', 'PPP Echo', 'DNS Probe']}>
+    Как роутер понимает, что интернет есть.
+  </Field>
+  <Field name="Extend the TTL value" aka="TTL" options={['Yes', 'No']} recommended="No">
+    Входящим пакетам с TTL = 1 роутер возвращает нормальное значение. Нужно у редких провайдеров, которые так мешают пользоваться роутером.
+  </Field>
+  <Field name="Spoof LAN TTL value" aka="подмена TTL" options={['Yes', 'No']} recommended="No">
+    Исходящим пакетам роутер ставит своё значение TTL, и провайдер не видит, что за роутером несколько устройств. Нужно с операторами, которые разрешают интернет только одному устройству (чаще мобильные). Это может нарушать условия договора.
+  </Field>
+  <Field name="MTU" kind="text">
+    Максимальный размер пакета. Пусто — роутер выберет сам. Меняют, только если провайдер просит.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011715/", title: "Как настроить подключение к интернету: типы WAN", note: "asus.com · FAQ · описание каждого поля" },
+    { href: "https://www.asus.com/ru/support/faq/1030645/", title: "Ошибки при подключении к интернету через роутер", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1051428/", title: "Как настроить DNS over TLS", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1045253/", title: "Как вручную назначить DNS-сервер", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1045028/", title: "Как отключить NAT-PMP (и UPnP)", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1045126/", title: "Как клонировать MAC-адрес", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://moskva.beeline.ru/customers/support/home/domashnij-internet/nastroyki-lokalnoy-seti-dlya-opytnykh/", title: "Билайн: настройки для опытных пользователей", note: "beeline.ru · пример L2TP" },
+    { href: "https://habr.com/ru/articles/108453/", title: "IPoE, Client-VLAN и DHCP Option 82", note: "habr.com · почему провайдеры ушли с PPPoE" },
+    { href: "https://www.kaspersky.ru/blog/upnp-trouble/15008/", title: "Филе из брандмауэра: уязвимости в UPnP", note: "kaspersky.ru" },
+    { href: "https://ru.wikipedia.org/wiki/DNS_поверх_TLS", title: "DNS поверх TLS", note: "ru.wikipedia.org" },
+    { href: "https://ru.wikipedia.org/wiki/DNS_rebinding", title: "DNS rebinding", note: "ru.wikipedia.org" },
+    { href: "https://ru.wikipedia.org/wiki/PPPoE", title: "PPPoE", note: "ru.wikipedia.org" },
+  ]}
+  here={[
+    { href: "/parental-controls/adguard", title: "Parental Controls - AdGuard", note: "Фильтр рекламы через DNS" },
+    { href: "/checklist", title: "Чеклист приватности и безопасности", note: "Что даёт шифрование DNS и чего не даёт" },
+  ]}
+/>

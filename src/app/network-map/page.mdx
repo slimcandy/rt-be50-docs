@@ -1,0 +1,51 @@
+export const metadata = {
+  title: 'Network Map',
+  description:
+    'Карта сети в роутере ASUS RT-BE50: что показывает главная страница и куда ведёт каждая карточка.',
+}
+
+# Network Map
+
+Первая страница после входа: состояние интернета, защита Wi‑Fi, список подключённых устройств. Здесь ничего не сломать, но через карточки можно попасть в настройки. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus network map список клиентов", "как узнать серый или белый IP", "двойной NAT как определить"]}>
+  В интерфейсе — <K>Network Map</K>, по‑русски «Карта сети». Список устройств — <K>Clients</K> (Client Status). Серый адрес ещё называют частным (Private IP), а NAT провайдера — CGNAT.
+</HowToSearch>
+
+## Элементы страницы
+
+<Fields>
+  <Field name="Internet status" aka="состояние интернета, WAN IP">
+    <K>Connected</K> или <K>Disconnected</K>, внешний адрес роутера (WAN IP) и <T>DDNS</T>. Если WAN IP начинается с `192.168.`, `10.`, `172.16`–`172.31` или `100.64`–`100.127`, адрес серый: перед роутером стоит ещё один роутер или <T>NAT</T> провайдера (CGNAT). Клик ведёт в <Path items={['WAN', 'Internet Connection']} />.
+  </Field>
+  <Field name="Security" aka="защита Wi‑Fi">
+    Каким способом защищён Wi‑Fi. Меняется в <Path items={['Network', 'Main Network']} />.
+  </Field>
+  <Field name="Clients" aka="подключённые устройства">
+    Сколько устройств подключено. Клик открывает список: имя, IP, MAC, через что подключено. Устройству можно задать имя и значок, закрепить за ним IP и заблокировать ему интернет.
+  </Field>
+  <Field name="AiMesh Node" aka="узлы mesh">
+    Сколько дополнительных роутеров подключено через <Path items={['AiMesh']} />.
+  </Field>
+  <Field name="System Status" aka="правая панель">
+    Вкладки справа: Wi‑Fi (имя и пароль по диапазонам, пароль можно сменить прямо здесь), LAN IP, загрузка процессора и памяти.
+  </Field>
+  <Field name="Верхняя панель" aka="шапка">
+    <K>Operation Mode</K> (ведёт к смене режима работы), <K>Firmware Version</K> (к обновлению), <K>Logout</K>, <K>Reboot</K>, выбор языка интерфейса (русский есть).
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1042636/", title: "Описание состояния интернета в интерфейсе роутера", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1005513/", title: "Как проверить данные о клиентах на роутере ASUS", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://support.netcraze.ru/4g/nc-1213/ru/19398-what-is-the-difference-between-a-public-and-private-ip-address-.html", title: "В чём отличие «белого» и «серого» IP-адреса", note: "support.netcraze.ru · Keenetic · с проверкой и CGNAT" },
+    { href: "https://ru.wikipedia.org/wiki/Частный_IP-адрес", title: "Частный IP-адрес", note: "ru.wikipedia.org" },
+    { href: "https://ru.wikipedia.org/wiki/NAT", title: "NAT", note: "ru.wikipedia.org" },
+  ]}
+  here={[
+    { href: "/wan/internet-connection", title: "WAN - Internet Connection", note: "Тип подключения и DNS" },
+  ]}
+/>

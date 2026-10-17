@@ -1,0 +1,54 @@
+export const metadata = {
+  title: 'VPN - VPN Server',
+  description:
+    'VPN-сервер в роутере ASUS RT-BE50: WireGuard, OpenVPN, IPsec и PPTP — что выбрать, чтобы безопасно заходить домой из любой сети.',
+}
+
+# VPN - VPN Server
+
+Роутер становится VPN‑сервером: с телефона или ноутбука в чужой сети вы попадаете домой, как будто подключены к домашнему Wi‑Fi. Это безопасный способ добраться до NAS или камер и выйти в интернет через домашнее подключение. {{ className: 'lead' }}
+
+<Note>
+  Серверу нужен белый (публичный) адрес. Если роутер стоит за другим роутером или за NAT провайдера (WAN IP в <Path items={['Network Map']} /> начинается с `10.`, `100.64`–`100.127`, `172.16`–`172.31` или `192.168.`), снаружи до него не достучаться, пока на вышестоящем устройстве не пробросить порт.
+</Note>
+
+<HowToSearch queries={['asus wireguard сервер настройка', 'wireguard или openvpn что выбрать', 'pptp небезопасен']}>
+  VPN‑сервер, удалённый доступ к домашней сети, remote access VPN. Устройство, которое подключается, называют клиентом или пиром (peer).
+</HowToSearch>
+
+## Типы серверов
+
+<Fields>
+  <Field name="WireGuard VPN" aka="WG" kind="info" example="рекомендуется">
+    Современный, быстрый, мало нагружает роутер. Роутер сам создаёт настройки для клиента: файл или QR‑код для приложения WireGuard. Порт виден в поле <K>Listen Port</K>.
+  </Field>
+  <Field name="OpenVPN" aka=".ovpn" kind="info">
+    Проверенная классика, если устройство не умеет WireGuard. Клиенту выдают файл `client.ovpn` (кнопка <K>Export</K>); после каждого изменения настроек файл нужно выгрузить заново. По умолчанию клиенты получают доступ только к домашней сети, без выхода в интернет через дом.
+  </Field>
+  <Field name="IPSec VPN" aka="IKEv2" kind="info">
+    Работает со встроенным VPN в iPhone, Android и Windows без отдельных приложений. Вход по общему ключу (<abbr title="Pre-Shared Key, общий ключ">PSK</abbr>) и логину; до 8 учётных записей. На нём же работает <Path items={['VPN', 'Instant Guard']} />.
+  </Field>
+  <Field name="PPTP" kind="info" example="не включать">
+    Устаревший и взломанный протокол: Microsoft ещё в 2012 году рекомендовала от него отказаться. Не включайте.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1050842/', title: 'Раскройте потенциал VPN с маршрутизатором ASUS', note: 'asus.com · FAQ · сервер, клиент и Instant Guard' },
+    { href: 'https://www.asus.com/ru/support/faq/1048280/', title: 'Как настроить сервер WireGuard', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1008713/', title: 'Как настроить сервер OpenVPN', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1044190/', title: 'Как настроить сервер IPSec', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1033906/', title: 'VPN-сервер за другим роутером: какие порты пробросить', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://support.netcraze.ru/ultra/nc-1812/ru/16933-vpn-types.html', title: 'Типы VPN-соединений', note: 'support.netcraze.ru · Keenetic · сравнение протоколов' },
+    { href: 'https://ru.wikipedia.org/wiki/WireGuard', title: 'WireGuard', note: 'ru.wikipedia.org' },
+    { href: 'https://ru.wikipedia.org/wiki/PPTP', title: 'PPTP', note: 'ru.wikipedia.org · раздел об уязвимостях' },
+    { href: 'https://www.wireguard.com/', title: 'WireGuard: Conceptual Overview', note: 'wireguard.com · на английском · что такое Allowed IPs' },
+  ]}
+  here={[
+    { href: '/wan/ddns', title: 'WAN - DDNS', note: 'Постоянное имя для домашнего адреса' },
+    { href: '/wan/port-forwarding', title: 'WAN - Virtual Server / Port Forwarding', note: 'Почему VPN лучше проброса' },
+  ]}
+/>

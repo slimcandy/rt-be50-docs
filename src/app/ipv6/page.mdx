@@ -1,0 +1,61 @@
+export const metadata = {
+  title: 'IPv6',
+  description:
+    'Настройки IPv6 в роутере ASUS RT-BE50: что выбрать, если провайдер даёт IPv6, и как это влияет на DNS-фильтр и VPN.',
+}
+
+# IPv6
+
+IPv6 — новая версия интернет‑адресов. Если провайдер её даёт, устройства получают «настоящие» адреса без <T>NAT</T>. Если не даёт, оставьте <K>Disable</K>, ничего не потеряете. {{ className: 'lead' }}
+
+<Note>
+  С IPv6 часть трафика и DNS‑запросов может пойти в обход настроек, сделанных только для IPv4: мимо DNS‑фильтра или мимо VPN. Включили IPv6 — проверьте, что фильтр и VPN по‑прежнему работают (см. <Path items={['Справочник', 'Приватность и безопасность']} />).
+</Note>
+
+<HowToSearch queries={["asus как настроить ipv6", "slaac или dhcpv6", "test-ipv6"]}>
+  Нативный IPv6, проброс (Passthrough), туннели 6in4/6rd, делегирование префикса (DHCP‑PD), SLAAC, DHCPv6, RA (Router Advertisement).
+</HowToSearch>
+
+## Basic Config
+
+<Fields>
+  <Field name="Connection type" aka="тип подключения IPv6" options={['Disable', 'Native', 'Static IPv6', 'Passthrough', "FLET'S IPv6 service", 'Tunnel 6to4', 'Tunnel 6in4', 'Tunnel 6rd']}>
+    <K>Native</K> — провайдер даёт IPv6 напрямую, самый частый случай; при PPPoE выбирают его, IPv6 идёт через ту же сессию. <K>Passthrough</K> — роутер пропускает IPv6 насквозь, без своих функций. Туннели нужны, когда провайдер IPv6 не даёт, а он нужен вам; <K>Tunnel 6to4</K> устарел, его не берите. Что выбрать, подскажет провайдер. В режиме точки доступа IPv6 не настраивается.
+  </Field>
+  <Field name="Interface" options={['PPP', 'Ethernet']}>
+    Откуда брать IPv6: из PPP‑подключения (если интернет по <abbr title="Point-to-Point Protocol over Ethernet">PPPoE</abbr>) или напрямую с порта.
+  </Field>
+  <Field name="DHCP-PD" aka="prefix delegation, делегирование префикса" options={['Enable', 'Disable']}>
+    Провайдер выдаёт роутеру целый блок адресов для домашней сети.
+  </Field>
+</Fields>
+
+## LAN Setting
+
+<Fields>
+  <Field name="Auto Configuration Setting" aka="SLAAC, DHCPv6" options={['Stateless', 'Stateful']}>
+    <K>Stateless</K> — устройства сами придумывают себе адреса (SLAAC), так понимают все. <K>Stateful</K> — адреса раздаёт роутер (DHCPv6), его не поддерживает Android.
+  </Field>
+  <Field name="Connect to DNS Server automatically" aka="DNS IPv6" options={['Enable', 'Disable']}>
+    Брать IPv6‑DNS у провайдера. Если у вас настроен DNS‑фильтр, проверьте, что устройства не получают DNS провайдера в обход роутера.
+  </Field>
+  <Field name="Enable Router Advertisement" aka="RA" options={['Enable', 'Disable']} recommended="Enable">
+    Роутер объявляет себя шлюзом IPv6. Без этого IPv6 в домашней сети не заработает.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/113990/", title: "Как настроить IPv6", note: "asus.com · FAQ · что выбрать при каком подключении" },
+    { href: "https://www.asus.com/ru/support/faq/1013638/", title: "Как настроить IPv6 Firewall", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://habr.com/ru/articles/931738/", title: "IPv6 для самых маленьких", note: "habr.com · 2025" },
+    { href: "https://wiki.archlinux.org/title/IPv6_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)", title: "IPv6", note: "wiki.archlinux.org · на русском" },
+    { href: "https://test-ipv6.com/", title: "test-ipv6.com", note: "проверить, работает ли IPv6" },
+  ]}
+  here={[
+    { href: "/firewall/general", title: "Firewall - General", note: "Файрвол IPv6" },
+    { href: "/checklist", title: "Чеклист приватности и безопасности", note: "IPv6 и утечки мимо VPN" },
+  ]}
+/>

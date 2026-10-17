@@ -1,0 +1,56 @@
+export const metadata = {
+  title: 'WAN - Dual WAN',
+  description:
+    'Два канала интернета в роутере ASUS RT-BE50: резервирование (Fail Over) и балансировка нагрузки.',
+}
+
+# WAN - Dual WAN
+
+Второй канал интернета: второй провайдер в один из LAN‑портов. Роутер переключается на него, когда основной пропал, или делит нагрузку между обоими. С одним провайдером не нужен. USB‑порта у RT-BE50 нет, поэтому 4G‑модем или телефон по USB вторым каналом не подключить. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus dual wan failover", "asus dual wan load balance аппаратное ускорение"]}>
+  Двойной WAN, резервный канал, отказоустойчивость (failover), возврат (failback), балансировка нагрузки (load balance).
+</HowToSearch>
+
+## Basic Config
+
+<Fields>
+  <Field name="Enable Dual WAN" options={['ON', 'OFF']}>
+    Включает второй канал.
+  </Field>
+  <Field name="Primary WAN / Secondary WAN" aka="основной и резервный" options={['2.5G WAN', 'Ethernet LAN']}>
+    Какие порты используются. Для <K>Ethernet LAN</K> выбирается конкретный LAN‑порт: он перестаёт быть домашним.
+  </Field>
+  <Field name="Dual WAN Mode" options={['Fail Over', 'Load Balance']}>
+    <K>Fail Over</K> — резерв включается, только когда основной пропал. Флажок <K>Allow failback</K> возвращает на основной, когда тот оживёт. <K>Load Balance</K> — оба канала работают сразу. Скорость одной загрузки от этого не растёт, но разные подключения расходятся по разным каналам. В этом режиме выключается аппаратное ускорение, а проброс портов, DDNS и VPN‑сервер на втором канале работают плохо.
+  </Field>
+  <Field name="Hot-Standby" options={['Enable', 'Disable']}>
+    Держать резервный канал подключённым всегда (Hot‑Standby) или поднимать только при обрыве (Cold‑Standby). Первое переключается быстрее.
+  </Field>
+</Fields>
+
+## Auto Network Detection
+
+<Fields>
+  <Field name="Detect Interval" aka="интервал проверки" kind="text" example="5">
+    Как часто, в секундах, проверять основной канал. В документации ASUS по умолчанию 5.
+  </Field>
+  <Field name="Internet Connection Diagnosis (Failover Trigger)" kind="text" example="12">
+    Сколько неудачных проверок подряд считать обрывом. По документации ASUS по умолчанию 12, минимум 3.
+  </Field>
+  <Field name="Network Monitoring" kind="check" options={['DNS Query', 'Ping']}>
+    Чем проверять: DNS‑запросом, ping на заданный адрес или обоими.
+  </Field>
+  <Field name="Enable Routing rules" options={['Yes', 'No']}>
+    Только для <K>Load Balance</K>: какие адреса всегда ходят через какой канал.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011719/", title: "Dual WAN: отказоустойчивость и балансировка", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1050124/", title: "Режим резервирования в Dual WAN", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1050116/", title: "Режим балансировки нагрузки", note: "asus.com · FAQ · отключает аппаратное ускорение" },
+    { href: "https://www.asus.com/ru/support/faq/1037368/", title: "Автоматическое обнаружение сети при Dual WAN", note: "asus.com · FAQ" },
+  ]}
+/>

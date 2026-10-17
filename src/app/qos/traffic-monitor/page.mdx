@@ -1,0 +1,35 @@
+export const metadata = {
+  title: 'QoS - Traffic Monitor',
+  description:
+    'Монитор трафика в роутере ASUS RT-BE50: графики загрузки интернета и Wi‑Fi.',
+}
+
+# QoS - Traffic Monitor
+
+Графики трафика: сколько данных идёт через интернет‑порт, проводную сеть и каждый диапазон Wi‑Fi. Показывает общий объём, а не то, какое устройство или сайт его создаёт. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus traffic monitor", "asus монитор трафика"]}>
+  Монитор трафика. У ASUS на других моделях он лежит в разделе Traffic Analyzer.
+</HowToSearch>
+
+## Графики
+
+<Fields>
+  <Field name="Real-time / Last 24 hours / Daily" aka="период" options={['Real-time', 'Last 24 hours', 'Daily']}>
+    За какой период график.
+  </Field>
+  <Field name="Internet / Wired / Wireless" aka="интерфейс">
+    Вкладки по интерфейсам: интернет‑порт, проводные порты, Wi‑Fi 2,4 и 5 ГГц.
+  </Field>
+</Fields>
+
+Истории посещённых сайтов на этой модели нет: функции, которые её дают, у ASUS работают через Trend Micro и на RT-BE50 скрыты. Статистику по доменам показывает AdGuard DNS, см. <Path items={['Parental Controls', 'AdGuard']} />.
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/114483/", title: "Описание монитора трафика", note: "asus.com · FAQ" },
+  ]}
+  here={[
+    { href: "/parental-controls/adguard", title: "Parental Controls - AdGuard", note: "Статистика по доменам" },
+  ]}
+/>

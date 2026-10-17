@@ -1,0 +1,70 @@
+export const metadata = {
+  title: 'Firewall - Network Services Filter',
+  description:
+    'Фильтр сетевых служб в роутере ASUS RT-BE50: как запретить устройствам ходить к сторонним DNS-серверам и другие правила LAN → интернет.',
+}
+
+# Firewall - Network Services Filter
+
+Запрещает устройствам дома обращаться в интернет на определённые порты или адреса, по расписанию или всегда. Главное домашнее применение — не дать устройствам ходить к чужим DNS‑серверам в обход фильтра роутера. {{ className: 'lead' }}
+
+<Note tone="bad">
+  В режиме <K>Allow List</K> вне выбранного расписания интернет пропадает у всех устройств сразу. Начинайте с <K>Deny List</K>.
+</Note>
+
+<HowToSearch queries={['asus фильтр сетевых служб блокировать dns 53', 'запретить устройствам сторонний dns роутер']}>
+  Фильтр сетевых служб, блокировка портов LAN → WAN, исходящий фильтр.
+</HowToSearch>
+
+## Network Services Filter
+
+<Fields>
+  <Field name="Enable Network Services Filter" options={['Yes', 'No']}>
+    Включает фильтр. По умолчанию выключен.
+  </Field>
+  <Field name="Filter table type" options={['Deny List', 'Allow List']} recommended="Deny List">
+    <K>Deny List</K> — запретить то, что в списке. <K>Allow List</K> — разрешить только то, что в списке.
+  </Field>
+  <Field name="Date / Time of Day to Enable LAN to WAN Filter" aka="расписание" kind="text" example="Mon–Sun · 00:00–23:59">
+    Когда действует фильтр. Отдельно будни и выходные. Для постоянного правила отметьте все дни и весь день.
+  </Field>
+  <Field name="Source IP" aka="чьё" kind="text">
+    Адрес устройства в доме. Пусто — все устройства.
+  </Field>
+  <Field name="Port Range" aka="порт" kind="text" example="53">
+    Порт назначения.
+  </Field>
+  <Field name="Destination IP" aka="куда" kind="text">
+    Адрес в интернете. Пусто — любой.
+  </Field>
+  <Field name="Protocol" options={['TCP', 'TCP ALL', 'UDP', '…']}>
+    <K>TCP</K> и <K>TCP ALL</K> одинаковы. Отдельные флаги TCP нужны только специалистам.
+  </Field>
+</Fields>
+
+## Пример: весь DNS только через роутер
+
+В режиме <K>Deny List</K>, расписание — всегда, <K>Source IP</K> и <K>Destination IP</K> пустые:
+
+| Port Range | Protocol | Что закрывает |
+|---|---|---|
+| 53 | UDP | Обычный DNS к чужим серверам в обход роутера |
+| 53 | TCP | То же по TCP |
+| 853 | TCP | Зашифрованный DNS (DoT), вписанный вручную, например «Частный DNS» на Android |
+
+Роутер при этом спрашивает DNS сам, и правило его не касается, а устройства спрашивают роутер. Зашифрованный DNS через HTTPS (DoH, порт 443) так не закрыть: порт тот же, что у всех сайтов. Его закрывают списком DoH‑серверов в DNS‑фильтре (например, в AdGuard DNS).
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1013636/', title: 'Как настроить фильтр сетевых служб', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://support.netcraze.ru/4g/nc-1213/ru/15598-firewall-rule-examples.html', title: 'Примеры правил межсетевого экрана', note: 'support.netcraze.ru · Keenetic' },
+    { href: 'https://ru.wikipedia.org/wiki/DNS_поверх_TLS', title: 'DNS поверх TLS', note: 'ru.wikipedia.org · почему порт 853' },
+    { href: 'https://ru.wikipedia.org/wiki/DNS_поверх_HTTPS', title: 'DNS поверх HTTPS', note: 'ru.wikipedia.org · почему 443 не закрыть' },
+  ]}
+  here={[
+    { href: '/checklist', title: 'Чеклист приватности и безопасности', note: 'Фильтр рекламы для всей сети' },
+    { href: '/system-log/connections', title: 'System Log - Connections', note: 'Проверить, кто идёт в обход' },
+  ]}
+/>

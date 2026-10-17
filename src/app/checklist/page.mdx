@@ -1,0 +1,350 @@
+export const metadata = {
+  title: 'Чеклист приватности и безопасности',
+  description:
+    'Что можно сделать в самом роутере ASUS RT-BE50 для безопасности сети, приватности от провайдера и блокировки рекламы. С плюсами, минусами и ограничениями каждой меры.',
+}
+
+# Чеклист приватности и безопасности
+
+Что можно сделать в самом роутере, чтобы сеть была безопаснее, провайдер видел меньше, а рекламы стало меньше на всех устройствах сразу. У каждой меры есть цена: что-то перестаёт работать, кому-то приходится доверять вместо провайдера. Поэтому у каждой указаны плюсы и минусы. {{ className: 'lead' }}
+
+Чеклист ограничен настройками роутера. Браузер, телефон, аккаунты — отдельная большая тема, и хорошие отправные точки для неё — [Privacy Guides](https://www.privacyguides.org/ru/), [PRISM Break](https://prism-break.org/ru/) и [EFF Surveillance Self-Defense](https://ssd.eff.org/ru/).
+
+<Note tone="info">
+  Сначала решите, от чего защищаетесь: от взлома роутера, от любопытства провайдера, от рекламных трекеров. Это разные задачи, и меры для них разные. Хорошее введение — «[Моделирование угроз](https://www.privacyguides.org/ru/basics/threat-modeling/)» на Privacy Guides и «[Оценка рисков](https://ssd.eff.org/ru/module/your-security-plan)» у EFF. Зачем вообще думать о приватности, хорошо объясняет Mullvad: «[Why privacy matters](https://mullvad.net/en/why-privacy-matters)».
+</Note>
+
+## Безопасность роутера
+
+<Measure
+  title="Свой пароль на вход и вход по HTTPS"
+  path={['Administration', 'System']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1039292/', title: 'Как улучшить безопасность роутера и Wi‑Fi', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1045854/', title: 'Вход в настройки по HTTPS', note: 'asus.com · FAQ' },
+    { href: 'https://ssd.eff.org/ru/module/creating-strong-passwords', title: 'Создание надёжных паролей', note: 'ssd.eff.org' },
+  ]}
+>
+  <Item label="Что делает">
+    Длинный пароль, не такой, как у Wi‑Fi, и <K>Authentication Method</K> = <K>HTTPS</K>. Гость или заражённое устройство в сети не зайдёт в настройки и не подменит, например, DNS.
+  </Item>
+  <Item label="Плюсы">
+    Закрывает самый частый путь: вход со стандартным паролем или паролем от Wi‑Fi. По HTTPS пароль не перехватить внутри сети.
+  </Item>
+  <Item label="Минусы">
+    Браузер предупреждает о самоподписанном сертификате. Если включить вход только с указанных адресов и ошибиться, можно запереть себя: поможет только сброс.
+  </Item>
+</Measure>
+
+<Measure
+  title="Закрыть управление из интернета"
+  path={['Administration', 'System']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1000926/', title: 'Веб-доступ из WAN', note: 'asus.com · FAQ' },
+    { href: 'https://3dnews.ru/1123642/v-tisyachah-routerov-asus-obnarugilsya-nevidimiy-i-stoykiy-bekdor', title: 'В тысячах роутеров Asus обнаружился стойкий бэкдор', note: '3dnews.ru · 2025' },
+  ]}
+>
+  <Item label="Что делает">
+    <K>Enable Web Access from WAN</K> = <K>No</K>, <K>Enable SSH</K> = <K>No</K> (или только для домашней сети), Telnet выключен. Страница настроек и командная строка роутера не видны из интернета.
+  </Item>
+  <Item label="Плюсы">
+    Убирает целый класс атак: ботнеты ищут роутеры с открытой страницей настроек, так в 2025 году были захвачены десятки тысяч роутеров ASUS. По умолчанию доступ из интернета выключен.
+  </Item>
+  <Item label="Минусы">
+    Управлять роутером не из дома через браузер нельзя. Вместо этого подключайтесь к своему VPN‑серверу или через приложение ASUS Router, но ему нужна связка с облаком ASUS.
+  </Item>
+</Measure>
+
+<Measure
+  title="Автообновление прошивки"
+  path={['Administration', 'Firmware Upgrade']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1008000/', title: 'Как обновить прошивку роутера', note: 'asus.com · FAQ' },
+  ]}
+>
+  <Item label="Что делает">
+    <K>Auto Firmware Upgrade</K> и <K>Security Upgrade</K> включены, время — ночью. Роутер сам ставит исправления уязвимостей.
+  </Item>
+  <Item label="Плюсы">
+    Главная защита от уже известных дыр, ничего не нужно помнить.
+  </Item>
+  <Item label="Минусы">
+    Ночные перезагрузки. Новая версия иногда меняет поведение функций. Роутер регулярно обращается к серверам ASUS, и ASUS видит модель, версию и адрес.
+  </Item>
+</Measure>
+
+<Measure
+  title="Файрвол включён, на ping из интернета не отвечать"
+  path={['Firewall', 'General']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1013630/', title: 'Брандмауэр на роутере ASUS: введение', note: 'asus.com · FAQ' },
+  ]}
+>
+  <Item label="Что делает">
+    <K>Enable Firewall</K> = <K>Yes</K>, <K>Respond ICMP Echo (ping) Request from WAN</K> = <K>No</K>, <K>Enable IPv6 Firewall</K> = <K>Yes</K>. Всё это значения по умолчанию: проверьте, что их никто не менял.
+  </Item>
+  <Item label="Плюсы">
+    Непрошеные подключения из интернета отбрасываются. С IPv6 у каждого устройства «настоящий» адрес, и файрвол IPv6 — его единственная защита.
+  </Item>
+  <Item label="Минусы">
+    Почти никаких. Устройства внутри сети друг от друга файрвол не защищает — для этого следующая мера про отдельные сети.
+  </Item>
+</Measure>
+
+<Measure
+  title="Не открывать порты: UPnP, DMZ, проброс"
+  path={['WAN', 'Internet Connection']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1045028/', title: 'Как отключить NAT-PMP и UPnP', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1011723/', title: 'DMZ: введение и настройка', note: 'asus.com · FAQ' },
+    { href: 'https://www.kaspersky.ru/blog/upnp-trouble/15008/', title: 'Уязвимости в UPnP', note: 'kaspersky.ru' },
+  ]}
+>
+  <Item label="Что делает">
+    <K>Enable UPnP</K> = <K>No</K>; <Path items={['WAN', 'DMZ']} /> выключен; в <Path items={['WAN', 'Virtual Server / Port Forwarding']} /> только то, что действительно нужно.
+  </Item>
+  <Item label="Плюсы">
+    Заражённая программа или взломанная камера не откроет себе дверь из интернета сама.
+  </Item>
+  <Item label="Минусы">
+    Онлайн‑игры на приставках могут жаловаться на «строгий NAT», торренты и некоторые звонки — работать хуже. Тогда нужные порты открывают вручную. По умолчанию UPnP у ASUS включён.
+  </Item>
+</Measure>
+
+<Measure
+  title="Wi‑Fi: WPA2/WPA3, без WPS"
+  path={['Network', 'Main Network']}
+  refs={[
+    { href: 'https://ru.wikipedia.org/wiki/Wi-Fi_Protected_Setup', title: 'Wi‑Fi Protected Setup', note: 'ru.wikipedia.org · уязвимость PIN' },
+    { href: 'https://ru.wikipedia.org/wiki/WPA', title: 'WPA', note: 'ru.wikipedia.org' },
+  ]}
+>
+  <Item label="Что делает">
+    <K>Authentication Method</K> = <K>WPA2/WPA3-Personal</K> (или <K>WPA3-Personal</K>), в <Path items={['Wireless', 'WPS']} /> <K>Enable WPS</K> = <K>OFF</K>.
+  </Item>
+  <Item label="Плюсы">
+    WPA3 лучше защищает от подбора пароля. PIN в WPS подбирается за часы, а с ним раскрывается и пароль Wi‑Fi.
+  </Item>
+  <Item label="Минусы">
+    Совсем старые устройства не подключатся к сети только на WPA3; смешанный режим совместимее. Без WPS новые устройства подключаются только вводом пароля.
+  </Item>
+</Measure>
+
+<Measure
+  title="Отдельная сеть для умного дома и гостей"
+  path={['Network']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1053665/', title: 'Как настроить IoT-сеть', note: 'asus.com · FAQ' },
+    { href: 'https://support.netcraze.ru/4g/nc-1213/ru/14628-network-segments.html', title: 'Сегменты сети', note: 'support.netcraze.ru · Keenetic' },
+  ]}
+>
+  <Item label="Что делает">
+    Камеры, телевизоры, розетки и гости — в отдельной сети, у которой выключено <K>Use same subnet as main network</K>.
+  </Item>
+  <Item label="Плюсы">
+    Если взломают дешёвую камеру, до компьютеров и телефонов с неё не добраться. Прошивки такой техники обновляются редко или никогда.
+  </Item>
+  <Item label="Минусы">
+    Перестаёт работать то, что ищет устройства по сети: трансляция на телевизор (AirPlay, Chromecast), управление с телефона из основной сети, сетевой принтер. По умолчанию ASUS ставит общую подсеть, и тогда изоляции нет.
+  </Item>
+</Measure>
+
+<Measure
+  title="Домой — через свой VPN, а не через открытые порты"
+  path={['VPN', 'VPN Server']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1048280/', title: 'Как настроить сервер WireGuard', note: 'asus.com · FAQ' },
+    { href: 'https://ru.wikipedia.org/wiki/PPTP', title: 'PPTP', note: 'ru.wikipedia.org · почему не использовать' },
+  ]}
+>
+  <Item label="Что делает">
+    Сервер WireGuard на роутере: из поездки или кафе вы заходите в домашнюю сеть и выходите в интернет через дом.
+  </Item>
+  <Item label="Плюсы">
+    В чужом Wi‑Fi трафик зашифрован до вашего роутера. Не нужно открывать наружу ни страницу настроек, ни NAS.
+  </Item>
+  <Item label="Минусы">
+    Каждый включённый сервер — открытый порт. Нужен белый адрес. PPTP не включайте никогда: он давно взломан. <Path items={['VPN', 'Instant Guard']} /> ASUS называет «полной анонимностью», но это не так: сайты видят ваш домашний адрес, провайдер — домашний трафик.
+  </Item>
+</Measure>
+
+## Приватность от провайдера
+
+Провайдер видит, к каким адресам обращаются ваши устройства и когда. Из DNS‑запросов он видит ещё и имена сайтов. Роутер может закрыть часть этого, но не всё: подробно — в разделе «Чего роутер не может» ниже.
+
+<Measure
+  title="Шифрованный DNS (DNS-over-TLS)"
+  path={['WAN', 'Internet Connection']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1051428/', title: 'Как настроить DNS over TLS', note: 'asus.com · FAQ' },
+    { href: 'https://www.privacyguides.org/ru/advanced/dns-overview/', title: 'Обзор DNS', note: 'privacyguides.org' },
+    { href: 'https://www.privacyguides.org/ru/dns/', title: 'DNS-провайдеры: как выбирать', note: 'privacyguides.org' },
+    { href: 'https://habr.com/ru/articles/1067672/', title: 'Один запрос, пять наблюдателей: что видят сайт, провайдер, DNS и VPN', note: 'habr.com · 2026' },
+  ]}
+>
+  <Item label="Что делает">
+    <K>DNS Privacy Protocol</K> = <K>DNS-over-TLS (DoT)</K>, профиль <K>Strict</K>, сервер из списка или свой. Роутер отправляет DNS‑запросы всей сети в зашифрованном виде.
+  </Item>
+  <Item label="Плюсы">
+    Провайдер не читает и не подменяет DNS‑ответы. Работает сразу для всех устройств, включая телевизор.
+  </Item>
+  <Item label="Минусы">
+    Все ваши запросы видит владелец DNS‑сервера: доверие переходит к нему, читайте его политику. Адреса сайтов и их имена при HTTPS‑подключении провайдер видит по‑прежнему. Порт 853 легко заблокировать, и в режиме <K>Strict</K> тогда пропадёт весь DNS. Нужны правильные часы на роутере.
+  </Item>
+</Measure>
+
+<Measure
+  title="Все устройства — через DNS роутера"
+  path={['LAN', 'DHCP Server']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1011715/', title: 'Типы WAN-подключений: описание полей DNS', note: 'asus.com · FAQ' },
+    { href: 'https://developer.apple.com/icloud/prepare-your-network-for-icloud-private-relay/', title: 'Prepare your network for iCloud Private Relay', note: 'apple.com · на английском' },
+  ]}
+>
+  <Item label="Что делает">
+    Поля <K>DNS Server 1</K> и <K>DNS Server 2</K> пустые: устройства спрашивают роутер. В <Path items={['WAN', 'Internet Connection']} /> <K>Prevent client auto DoH</K> = <K>Auto</K> или <K>Yes</K>: браузеры не включают свой DNS в обход роутера.
+  </Item>
+  <Item label="Плюсы">
+    Без этого шифрованный DNS и фильтр рекламы на роутере легко обойти.
+  </Item>
+  <Item label="Минусы">
+    Действует только на автоматическое включение: DNS, включённый в браузере вручную или зашитый в приложение, так не остановить. Режим <K>Yes</K> выключает на iPhone «Частный узел» iCloud.
+  </Item>
+</Measure>
+
+<Measure
+  title="VPN-клиент на роутере"
+  path={['VPN', 'VPN Fusion']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1048506/', title: 'Зачем нужен VPN Fusion', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1043833/', title: 'Поддерживает ли VPN протокол IPv6', note: 'asus.com · FAQ · только IPv4' },
+    { href: 'https://www.privacyguides.org/ru/basics/vpn-overview/', title: 'Обзор VPN', note: 'privacyguides.org · смещение доверия' },
+    { href: 'https://ssd.eff.org/ru/module/choosing-vpn-thats-right-you', title: 'Выбор подходящего VPN-сервиса', note: 'ssd.eff.org' },
+    { href: 'https://prism-break.org/ru/subcategories/servers-vpn/', title: 'Серверы VPN', note: 'prism-break.org · свой сервер' },
+  ]}
+>
+  <Item label="Что делает">
+    Роутер сам подключается к VPN‑серверу — своему, рабочему или сервису, — и выбранные устройства или целая сеть (<Path items={['Network']} /> → VPN Network) идут через туннель.
+  </Item>
+  <Item label="Плюсы">
+    Закрывает то, чего не закрывает шифрованный DNS: провайдер видит только сам факт подключения к VPN, а не адреса сайтов. Сайты видят адрес VPN‑сервера. Работает для телевизора и приставки, на которые приложение не поставить.
+  </Item>
+  <Item label="Минусы">
+    Всё, что раньше видел провайдер, теперь видит владелец VPN‑сервера; «без логов» — только обещание. VPN роутера работает только по IPv4: с включённым IPv6 часть трафика идёт мимо. Kill switch нет ни в интерфейсе, ни в коде страницы: при обрыве устройства уходят в обычный интернет. Скорость ограничена процессором роутера. Банки, госсервисы и стриминг бывают недовольны VPN‑адресами.
+  </Item>
+</Measure>
+
+<Measure
+  title="IPv6 выключен, пока не нужен"
+  path={['IPv6']}
+  refs={[
+    { href: 'https://mullvad.net/en/help/dns-leaks', title: 'How to prevent DNS leaks', note: 'mullvad.net · на английском · раздел про роутеры и IPv6' },
+  ]}
+>
+  <Item label="Что делает">
+    <K>Connection type</K> = <K>Disable</K>, если провайдер IPv6 не даёт или он вам не нужен.
+  </Item>
+  <Item label="Плюсы">
+    Весь трафик идёт через VPN‑клиент и DNS‑настройки роутера, без утечек по IPv6. Меньше адресов, видимых из интернета.
+  </Item>
+  <Item label="Минусы">
+    Сам по себе приватности не добавляет. У некоторых провайдеров по IPv6 быстрее, а иногда это единственный способ принимать входящие подключения без белого IPv4.
+  </Item>
+</Measure>
+
+<Measure
+  title="Отозвать согласие на передачу данных ASUS"
+  path={['Administration', 'Policy']}
+  refs={[
+    { href: 'https://demoui.asus.com/Advanced_Privacy.asp', title: 'Демо интерфейса: Administration › Privacy', note: 'demoui.asus.com · на английском' },
+    { href: 'https://www.asus.com/ru/terms_of_use_notice_privacy_policy/privacy_policy/', title: 'Политика конфиденциальности ASUS', note: 'asus.com' },
+  ]}
+>
+  <Item label="Что делает">
+    Кнопка <K>Withdraw</K>: роутер перестаёт отправлять ASUS данные для облачных функций (модель, прошивку, адреса, DDNS‑имя).
+  </Item>
+  <Item label="Плюсы">
+    Меньше данных у производителя и меньше входов через облако.
+  </Item>
+  <Item label="Минусы">
+    Перестают работать DDNS от ASUS, удалённое управление из приложения и Instant Guard. По отзывам пользователей, может выключиться автоматическое обновление безопасности: тогда проверяйте обновления вручную.
+  </Item>
+</Measure>
+
+## Реклама и трекеры
+
+<Measure
+  title="Фильтр рекламы для всей сети: AdGuard DNS"
+  path={['Parental Controls', 'AdGuard']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1051213/', title: 'Как настроить AdGuard DNS на роутере ASUS', note: 'asus.com · FAQ' },
+    { href: 'https://adguard-dns.io/kb/ru/general/dns-filtering/', title: 'DNS-фильтрация', note: 'adguard-dns.io · плюсы и минусы' },
+    { href: 'https://adguard-dns.io/ru/privacy.html', title: 'Политика конфиденциальности AdGuard DNS', note: 'adguard-dns.io · журналы' },
+    { href: 'https://prism-break.org/ru/protocols/dns/', title: 'DNS', note: 'prism-break.org' },
+  ]}
+>
+  <Item label="Что делает">
+    Запросы к рекламным, следящим и вредоносным доменам получают пустой ответ. Работает на телевизоре, телефонах и умной технике без установки программ. Каждой сети из <Path items={['Network']} /> можно дать свой профиль.
+  </Item>
+  <Item label="Плюсы">
+    Меньше рекламы и трекеров на всех устройствах, страницы грузятся быстрее, видна статистика, что и куда обращается.
+  </Item>
+  <Item label="Минусы">
+    AdGuard видит ваши DNS‑запросы и по умолчанию ведёт их журнал (его можно отключить). Аккаунт должен быть без двухфакторной защиты — требование роутера. Реклама с тех же адресов, что и содержимое (YouTube, соцсети), останется. Агрессивные списки ломают ссылки из рассылок и некоторые приложения, придётся вести исключения. В некоторых регионах функция недоступна.
+  </Item>
+</Measure>
+
+<Measure
+  title="Запретить устройствам DNS мимо роутера"
+  path={['Firewall', 'Network Services Filter']}
+  refs={[
+    { href: 'https://www.asus.com/ru/support/faq/1013636/', title: 'Как настроить фильтр сетевых служб', note: 'asus.com · FAQ' },
+  ]}
+>
+  <Item label="Что делает">
+    Правила в режиме <K>Deny List</K>: порт 53 (UDP и TCP) и 853 (TCP) наружу закрыты. Устройство с вписанным вручную `8.8.8.8` не сможет обратиться к нему напрямую. Пример есть на странице фильтра.
+  </Item>
+  <Item label="Плюсы">
+    Закрывает самый частый обход: телевизор или Android с зашитым DNS.
+  </Item>
+  <Item label="Минусы">
+    DNS через HTTPS (порт 443) так не закрыть. Устройство с жёстко вписанным DNS может просто остаться без интернета: перенаправлять такие запросы на себя роутер не умеет.
+  </Item>
+</Measure>
+
+## Чего роутер не может
+
+| Не закрывает | Почему |
+|---|---|
+| Имя сайта при HTTPS‑подключении (без VPN) | Даже с шифрованным DNS имя передаётся открыто в начале соединения (SNI). Скрывает его только ECH, а его включают сайт и браузер, не роутер. |
+| Адреса, время и объём соединений | Провайдер видит их при любом DNS. Скрывает только VPN, и тогда их видит владелец VPN‑сервера. |
+| Отпечаток браузера, cookies, трекинг внутри сайтов | Всё это живёт в браузере и на сайте, а не в сети. Проверить себя: [Cover Your Tracks](https://coveryourtracks.eff.org/). |
+| Аккаунты | Вошли в Google, Яндекс или соцсеть — сервис знает вас по логину, а не по адресу. |
+| Реклама с тех же адресов, что и содержимое | DNS‑фильтр блокирует домен целиком. |
+| Мобильный интернет телефона | Настройки роутера действуют только дома. |
+| Анонимность | Ни шифрованный DNS, ни VPN на роутере её не дают. Анонимность — это [Tor](https://www.privacyguides.org/ru/advanced/tor-overview/), и это уже не про роутер. |
+
+## Российский контекст
+
+Это не советы, а факты, которые влияют на то, насколько надёжно работают меры выше.
+
+- У провайдеров установлено оборудование ТСПУ (DPI). Оно распознаёт протоколы, включая шифрованный DNS и VPN. Шифрованный DNS и VPN‑клиент могут работать нестабильно независимо от настроек роутера, а в режиме <K>Strict</K> блокировка DoT означает пропажу DNS. Источники: [ТСПУ](https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D1%85%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5_%D1%81%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B2%D0%B0_%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D1%8F_%D1%83%D0%B3%D1%80%D0%BE%D0%B7%D0%B0%D0%BC) в Википедии, [Коммерсантъ, 2026](https://www.kommersant.ru/doc/8586949) об ограничении протоколов OpenVPN и WireGuard.
+- ECH, который скрывает имя сайта, с ноября 2024 года ограничивается: [CNews](https://www.cnews.ru/news/top/2024-11-07_dochka_roskomnadzora_porekomendovala), [3DNews](https://3dnews.ru/1113584/izza-blokirovki-rkn-podklyucheniya-k-cloudflare-zatrudnilsya-dostup-k-mnogim-saytam).
+- Операторы обязаны хранить метаданные соединений: [«Закон Яровой»](https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BA%D0%BE%D0%BD_%D0%AF%D1%80%D0%BE%D0%B2%D0%BE%D0%B9), [СОРМ](https://ru.wikipedia.org/wiki/%D0%A1%D0%9E%D0%A0%D0%9C). Шифрованный DNS уменьшает видимое провайдеру только в части DNS.
+- С 2024 года запрещена популяризация средств обхода блокировок ([Ведомости](https://www.vedomosti.ru/society/news/2024/02/05/1018579-zapret-na-populyarizatsiyu-vpn-servisov)), с 2025 года введены штрафы за рекламу VPN‑сервисов ([Интерфакс](https://www.interfax.ru/russia/1039088)). Поэтому справочник описывает VPN как функцию роутера и не называет и не сравнивает VPN‑сервисы.
+
+<Related
+  learn={[
+    { href: 'https://www.privacyguides.org/ru/basics/threat-modeling/', title: 'Моделирование угроз', note: 'privacyguides.org' },
+    { href: 'https://www.privacyguides.org/ru/basics/common-misconceptions/', title: 'Распространённые заблуждения', note: 'privacyguides.org' },
+    { href: 'https://ssd.eff.org/ru/module/why-metadata-matters', title: 'Чем важны метаданные', note: 'ssd.eff.org' },
+    { href: 'https://mullvad.net/ru/why-privacy-matters', title: 'Почему конфиденциальность важна', note: 'mullvad.net · вступление на русском' },
+    { href: 'https://prism-break.org/ru/categories/routers/', title: 'Маршрутизаторы', note: 'prism-break.org' },
+  ]}
+  here={[
+    { href: '/administration/system', title: 'Administration - System', note: 'Безопасность входа' },
+    { href: '/wan/internet-connection', title: 'WAN - Internet Connection', note: 'Шифрованный DNS' },
+    { href: '/parental-controls/adguard', title: 'Parental Controls - AdGuard', note: 'Фильтр рекламы' },
+    { href: '/vpn/vpn-fusion', title: 'VPN - VPN Fusion', note: 'VPN-клиент' },
+  ]}
+/>

@@ -1,0 +1,55 @@
+export const metadata = {
+  title: 'WAN - Virtual Server / Port Forwarding',
+  description:
+    'Проброс портов в роутере ASUS RT-BE50: как открыть доступ к устройству дома из интернета и чем это опасно.',
+}
+
+# WAN - Virtual Server / Port Forwarding
+
+Проброс портов: запрос из интернета на определённый порт роутер передаёт определённому устройству дома. Так делают доступ к домашнему серверу, NAS или камере снаружи. Каждое правило — дверь из интернета в домашнюю сеть. {{ className: 'lead' }}
+
+<Note>
+  Проброс не сработает, если у роутера серый адрес: WAN IP начинается с `10.`, `100.64`–`100.127`, `172.16`–`172.31` или `192.168.`. Тогда перед вами ещё один <T>NAT</T> — модем или сеть провайдера. Внешний адрес проверяют в <Path items={['Network Map']} />.
+</Note>
+
+<HowToSearch queries={["asus проброс портов не работает из интернета", "проброс портов серый ip cgnat"]}>
+  Проброс портов, переадресация портов, виртуальный сервер, port forwarding, DNAT.
+</HowToSearch>
+
+## Port Forwarding
+
+<Fields>
+  <Field name="Enable Port Forwarding" options={['ON', 'OFF']}>
+    Включает правила.
+  </Field>
+  <Field name="Famous Server List / Famous Game List" aka="шаблоны">
+    Готовые правила для типовых серверов (FTP, HTTP, VPN) и игр.
+  </Field>
+  <Field name="Service Name / External Port / Internal Port / Internal IP Address" aka="строка правила" kind="text">
+    Название, порт снаружи, порт и адрес устройства дома. Устройству закрепите постоянный адрес в <Path items={['LAN', 'DHCP Server']} />, иначе правило однажды укажет на другое устройство.
+  </Field>
+  <Field name="Protocol" options={['TCP', 'UDP', 'BOTH', 'OTHER']}>
+    Протокол. Какой нужен, пишут в инструкции к программе или устройству.
+  </Field>
+  <Field name="Source IP" aka="кому разрешено" kind="text">
+    Пускать только с указанного адреса. Если ходите домой с известного адреса, это заметно безопаснее.
+  </Field>
+</Fields>
+
+Проброс работает только для IPv4. Внешний адрес с пробросом открывается и изнутри дома (NAT loopback включён всегда).
+
+Безопаснее всего ничего не пробрасывать, а заходить домой через VPN: <Path items={['VPN', 'VPN Server']} />. Тогда наружу открыт один хорошо защищённый вход, а не каждый сервис.
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1037906/", title: "Как настроить виртуальный сервер / переадресацию портов", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1043024/", title: "Поддерживают ли роутеры NAT Loopback", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://habr.com/ru/articles/1038186/", title: "VPS-бастион: доступ к домашнему серверу без белого IP", note: "habr.com · если адрес серый" },
+    { href: "https://en.wikipedia.org/wiki/Port_forwarding", title: "Port forwarding", note: "en.wikipedia.org · на английском" },
+  ]}
+  here={[
+    { href: "/vpn/vpn-server", title: "VPN - VPN Server", note: "Безопасный вход домой" },
+  ]}
+/>

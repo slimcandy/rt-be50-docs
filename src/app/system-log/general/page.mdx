@@ -1,0 +1,35 @@
+export const metadata = {
+  title: 'System Log - General Log',
+  description:
+    'Системный журнал роутера ASUS RT-BE50: что в нём смотреть и как сохранить.',
+}
+
+# System Log - General Log
+
+Системный журнал: запуск роутера, подключение к провайдеру, выдача адресов, ошибки. Сверху видно текущее время роутера и сколько он работает без перезагрузки. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus сохранить системный журнал', 'asus remote log server']}>
+  Системный журнал, лог, syslog. <K>Remote Log Server</K> — отправка журнала на другой компьютер.
+</HowToSearch>
+
+## System Log
+
+<Fields>
+  <Field name="Clear / Save / Refresh" aka="очистить, сохранить, обновить" kind="info" example="Save">
+    <K>Save</K> скачивает журнал файлом `syslog.txt`: его просит поддержка.
+  </Field>
+  <Field name="Remote Log Server / Remote Log Server Port" aka="удалённый сервер журнала" kind="text" example="IP · 514">
+    Отправлять журнал на другой компьютер или NAS по протоколу syslog. Журнал роутера после перезагрузки начинается заново, а там он сохранится.
+  </Field>
+</Fields>
+
+Что искать: повторяющиеся неудачные входы в роутер (кто-то подбирает пароль), частые обрывы связи с провайдером, ошибки зашифрованного DNS.
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1044954/', title: 'Как сохранить системный журнал', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/Syslog', title: 'syslog', note: 'ru.wikipedia.org' },
+  ]}
+/>

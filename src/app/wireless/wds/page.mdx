@@ -1,0 +1,50 @@
+export const metadata = {
+  title: 'Wireless - Bridge',
+  description:
+    'Беспроводной мост WDS в роутере ASUS RT-BE50: что это, чем отличается от AiMesh и когда его включать.',
+}
+
+# Wireless - Bridge
+
+WDS (беспроводной мост) соединяет два роутера по Wi‑Fi без кабеля. Это устаревший способ, и у ASUS он работает только без шифрования или с WEP, который взламывается за минуты. Не пользуйтесь им: два роутера ASUS лучше связать через <Path items={['AiMesh']} />, а с чужим роутером — режимом повторителя или медиамоста в <Path items={['Administration', 'Operation Mode']} />. {{ className: 'lead' }}
+
+<Note tone="bad">
+  Для WDS сеть придётся перевести на <K>Open System</K> или WEP, то есть фактически открыть. Если вы не строите мост, ничего здесь не меняйте: неверный <K>AP Mode</K> ещё и отключит Wi‑Fi для обычных устройств.
+</Note>
+
+<HowToSearch queries={["wds почему только wep", "aimesh вместо wds"]}>
+  WDS, Wireless Distribution System, беспроводной мост, Bridge.
+</HowToSearch>
+
+## Basic Config
+
+<Fields>
+  <Field name="2.4 GHz MAC / 5 GHz MAC" aka="MAC-адрес радиомодуля" kind="info">
+    Адреса радиомодулей этого роутера. Их вписывают на втором роутере, когда настраивают мост.
+  </Field>
+  <Field name="Band" options={['2.4 GHz', '5 GHz']}>
+    Для какого диапазона настраиваете мост.
+  </Field>
+  <Field name="AP Mode" aka="режим точки доступа" options={['AP Only', 'WDS Only', 'Hybrid']} recommended="AP Only">
+    <K>AP Only</K> — обычный роутер, моста нет. <K>WDS Only</K> — только мост, обычные устройства к этому диапазону не подключатся. <K>Hybrid</K> — и мост, и обычные устройства, но скорость делится пополам.
+  </Field>
+  <Field name="Connect to APs in list" options={['Yes', 'No']} recommended="No">
+    Подключаться только к точкам доступа из списка ниже.
+  </Field>
+  <Field name="Remote AP List" aka="список удалённых точек" kind="text" example="MAC-адрес">
+    MAC‑адреса второго роутера (или нескольких, до 4). Обе стороны должны работать на одном канале и с одинаковым шифрованием.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/109839/", title: "Как настроить WDS", note: "asus.com · FAQ · только Open System или WEP" },
+    { href: "https://www.asus.com/ru/support/faq/1015007/", title: "Обзор режимов работы", note: "asus.com · FAQ · чем заменить WDS" },
+  ]}
+  learn={[
+    { href: "https://ru.wikipedia.org/wiki/Wireless_Distribution_System", title: "Wireless Distribution System", note: "ru.wikipedia.org · «устаревшая технология»" },
+  ]}
+  here={[
+    { href: "/aimesh", title: "AiMesh", note: "Современная замена" },
+  ]}
+/>

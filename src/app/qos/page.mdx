@@ -1,0 +1,58 @@
+export const metadata = {
+  title: 'QoS - QoS',
+  description:
+    'QoS в роутере ASUS RT-BE50: Adaptive QoS, Traditional QoS и ограничение скорости — когда включать и чем это грозит.',
+}
+
+# Traffic Manager - QoS
+
+<abbr title="Quality of Service, качество обслуживания">QoS</abbr> делит интернет‑канал между устройствами и задачами: игре и видеозвонку достаётся в первую очередь, загрузке торрента в последнюю. Нужен, когда канал узкий и его не хватает на всех: например, видеозвонок заикается, пока кто-то качает файл. Одновременно работает только один тип QoS. {{ className: 'lead' }}
+
+<Note>
+  QoS может отключить аппаратное ускорение (<K>NAT Acceleration</K>), и тогда роутер обрабатывает весь трафик процессором. Для <K>Bandwidth Limiter</K> ASUS это прямо подтверждает. На быстром тарифе скорость может упасть: проверьте её после включения. Если канала хватает, QoS не нужен.
+</Note>
+
+<HowToSearch queries={["asus adaptive qos или traditional qos", "bufferbloat тест роутер", "asus bandwidth limiter nat acceleration"]}>
+  QoS — качество обслуживания, приоритизация трафика. <K>Bandwidth Limiter</K> — ограничение скорости, шейпер. В новых прошивках ASUS Adaptive QoS переименован в Adaptive QoE. Проблему, которую QoS решает дома, называют bufferbloat: пинг растёт под нагрузкой.
+</HowToSearch>
+
+## QoS
+
+<Fields>
+  <Field name="Enable QoS" options={['ON', 'OFF']} recommended="OFF">
+    Включает QoS.
+  </Field>
+  <Field name="QoS Type" aka="тип QoS" kind="radio" options={['Adaptive QoS', 'QoS', 'Bandwidth Limiter', 'GeForce NOW QoS']}>
+    <K>Adaptive QoS</K> — приоритет по категориям (игры, видео, работа), порядок задают перетаскиванием. <K>QoS</K> (в документации ASUS — Traditional QoS) — ручные правила по адресам и портам. <K>Bandwidth Limiter</K> — ограничение скорости конкретным устройствам. <K>GeForce NOW QoS</K> — приоритет облачному игровому сервису NVIDIA.
+  </Field>
+  <Field name="Bandwidth Setting" aka="скорость канала" kind="radio" options={['Automatic Setting', 'Manual Setting']}>
+    Измерить скорость автоматически или вписать вручную в <K>Upload Bandwidth</K> и <K>Download Bandwidth</K>.
+  </Field>
+  <Field name="Upload Bandwidth / Download Bandwidth" aka="скорость канала" kind="text" example="Mb/s">
+    Реальная скорость вашего тарифа. Если указать больше реальной, QoS не сработает. Обычно ставят чуть ниже измеренной (на 5–10 %).
+  </Field>
+  <Field name="RouterBoost" options={['Activate', 'Deactivate']}>
+    Фирменная функция ASUS; документации к ней нет.
+  </Field>
+  <Field name="Enable GeForce NOW QoS UPnP control" options={['Yes', 'No']}>
+    Приоритет облачному игровому сервису NVIDIA. Нужен, только если вы в нём играете.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1010935/", title: "Введение в QoS", note: "asus.com · FAQ · три типа QoS" },
+    { href: "https://www.asus.com/ru/support/faq/1010951/", title: "Как настроить традиционный QoS", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1013333/", title: "Как настроить Bandwidth Limiter", note: "asus.com · FAQ · отключает NAT Acceleration" },
+    { href: "https://www.asus.com/ru/support/faq/1039503/", title: "Режим GeForce NOW QoS", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://habr.com/ru/companies/otus/articles/1065670/", title: "Канал свободен, а пинг под нагрузкой скачет: bufferbloat и очереди", note: "habr.com · зачем дома QoS" },
+    { href: "https://ru.wikipedia.org/wiki/QoS", title: "QoS", note: "ru.wikipedia.org" },
+    { href: "https://ru.wikipedia.org/wiki/Излишняя_сетевая_буферизация", title: "Излишняя сетевая буферизация (bufferbloat)", note: "ru.wikipedia.org" },
+  ]}
+  here={[
+    { href: "/lan/switch-control", title: "LAN - Switch Control", note: "Аппаратное ускорение NAT" },
+    { href: "/qos/internet-speed", title: "QoS - Internet Speed", note: "Измерить скорость тарифа" },
+  ]}
+/>

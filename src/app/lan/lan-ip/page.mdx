@@ -1,0 +1,46 @@
+export const metadata = {
+  title: 'LAN - LAN IP',
+  description:
+    'Адрес роутера в домашней сети ASUS RT-BE50: что значат IP-адрес, маска и имя роутера и почему их опасно менять.',
+}
+
+# LAN - LAN IP
+
+Адрес самого роутера в домашней сети. По нему вы и заходите в настройки. {{ className: 'lead' }}
+
+<Note tone="bad">
+  После смены <K>IP Address</K> роутер станет доступен по новому адресу, а все устройства должны переподключиться. Меняют адрес, только если он совпадает с адресом другого роутера (например, модема провайдера).
+</Note>
+
+<HowToSearch queries={["asus как изменить lan ip роутера", "частные диапазоны ip 192.168 10.0 172.16"]}>
+  Адрес роутера, IP шлюза, LAN IP, маска подсети (subnet mask), локальный домен.
+</HowToSearch>
+
+## LAN IP
+
+<Fields>
+  <Field name="Host Name" aka="имя роутера" kind="text" example="RT-BE50-XXXX">
+    Имя роутера в сети. Не может начинаться с цифры и содержать точку.
+  </Field>
+  <Field name="RT-BE50's Domain Name" aka="локальный домен" kind="text">
+    Домашний домен, например `lan`: только буквы, цифры и дефис. Тогда к устройствам можно обращаться по имени: `nas.lan`.
+  </Field>
+  <Field name="IP Address" aka="адрес роутера, шлюз" kind="text" example="192.168.50.1">
+    Адрес роутера, он же адрес страницы настроек. Это же значение вписано у устройств как шлюз.
+  </Field>
+  <Field name="Subnet Mask" aka="маска подсети" kind="text" example="255.255.255.0">
+    Размер домашней сети. `255.255.255.0` — до 254 адресов, дома этого хватает.
+  </Field>
+</Fields>
+
+Поля <K>Get LAN IP Automatically?</K> и настройки DNS здесь появляются только в режимах точки доступа и репитера (<Path items={['Administration', 'Operation Mode']} />).
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011245/", title: "Как меняется LAN IP-адрес на роутере", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://ru.wikipedia.org/wiki/Частный_IP-адрес", title: "Частный IP-адрес", note: "ru.wikipedia.org" },
+    { href: "https://ru.wikipedia.org/wiki/Маска_подсети", title: "Маска подсети", note: "ru.wikipedia.org" },
+  ]}
+/>

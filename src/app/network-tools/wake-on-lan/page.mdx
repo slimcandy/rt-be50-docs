@@ -1,0 +1,35 @@
+export const metadata = {
+  title: 'Network Tools - Wake on LAN',
+  description:
+    'Wake on LAN в роутере ASUS RT-BE50: включить компьютер по сети.',
+}
+
+# Network Tools - Wake on LAN
+
+Включает компьютер по сети: роутер отправляет «волшебный пакет» на MAC‑адрес сетевой карты. Компьютер должен быть подключён кабелем, а Wake on LAN — включён в его BIOS или UEFI и в настройках сетевой карты. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus роутер wake on lan', 'wake on lan magic packet как работает']}>
+  Wake on LAN, WOL, пробуждение по сети, magic packet («волшебный пакет»).
+</HowToSearch>
+
+## Wake on LAN
+
+<Fields>
+  <Field name="Target" aka="MAC-адрес" kind="text" example="MAC">
+    MAC‑адрес компьютера, который нужно разбудить; кнопка <K>Wake up</K> отправляет пакет.
+  </Field>
+  <Field name="Client Name (MAC Address)" aka="сохранённые компьютеры" kind="text">
+    Список компьютеров, чтобы не вводить MAC каждый раз.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1011268/', title: 'Как настроить WOL (Wake on LAN)', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1045950/', title: 'Wake on LAN на материнских платах ASUS', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/Wake-on-LAN', title: 'Wake-on-LAN', note: 'ru.wikipedia.org' },
+    { href: 'https://habr.com/ru/articles/816765/', title: 'Выключаем компьютер через Wake-on-Lan', note: 'habr.com · устройство пакета' },
+  ]}
+/>

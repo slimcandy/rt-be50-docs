@@ -1,0 +1,39 @@
+export const metadata = {
+  title: 'VPN - Instant Guard',
+  description:
+    'Instant Guard в роутере ASUS RT-BE50: VPN домой в одно касание через приложение и что для него нужно.',
+}
+
+# VPN - Instant Guard
+
+VPN домой в одно касание: приложение ASUS Instant Guard на телефоне подключается к роутеру по IPsec (IKEv2) без ручной настройки. Это упрощённая обёртка над <Path items={['VPN', 'VPN Server']} />. {{ className: 'lead' }}
+
+Что нужно: белый адрес у роутера, заранее настроенное приложение ASUS Router с включённым удалённым доступом. Работает только по IPv4, до 8 устройств. За другим роутером на нём пробрасывают порты UDP 500 и 4500 и TCP 8443.
+
+## Basic Config
+
+<Fields>
+  <Field name="Instant Guard" options={['ON', 'OFF']}>
+    Включает сервер для приложения.
+  </Field>
+  <Field name="Server IP Address" aka="адрес сервера" kind="info">
+    Внешний адрес, к которому подключается приложение.
+  </Field>
+  <Field name="System Log / Remote IP" aka="журнал подключений">
+    Кто и с какого адреса подключался.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1044340/', title: 'Как настроить Instant Guard', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1045725/', title: 'Instant Guard за другим роутером: проброс портов', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1044123/', title: 'Какие роутеры поддерживают Instant Guard', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/IPsec', title: 'IPsec', note: 'ru.wikipedia.org' },
+  ]}
+  here={[
+    { href: '/administration/system', title: 'Administration - System', note: 'Удалённый доступ и его риски' },
+  ]}
+/>

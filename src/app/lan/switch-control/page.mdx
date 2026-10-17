@@ -1,0 +1,37 @@
+export const metadata = {
+  title: 'LAN - Switch Control',
+  description:
+    'Switch Control в роутере ASUS RT-BE50: аппаратное ускорение NAT и Jumbo Frame.',
+}
+
+# LAN - Switch Control
+
+Всего два поля: большие кадры и аппаратное ускорение. Объединения портов (Link aggregation) на RT-BE50 нет. Главное здесь — <K>NAT Acceleration</K>: благодаря ему роутер выдаёт полную скорость тарифа. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus nat acceleration", "jumbo frame нужно ли включать"]}>
+  Аппаратное ускорение NAT, hardware NAT, offload. Jumbo Frame — большие кадры. Link aggregation — агрегация каналов, LACP, bonding, teaming.
+</HowToSearch>
+
+## Switch Control
+
+<Fields>
+  <Field name="NAT Acceleration" aka="аппаратное ускорение, hardware NAT, offload" options={['Disable', 'Enable']} recommended="Enable">
+    Пакеты идут через специальный блок чипа, а не через процессор. Без ускорения скорость на быстром тарифе может упасть в разы. Роутер сам выключает его, когда включены функции, которым нужно видеть каждый пакет, например <Path items={['QoS']} />.
+  </Field>
+  <Field name="Jumbo Frame" aka="большие кадры" options={['Disable', 'Enable']} recommended="Disable">
+    Кадры больше 1500 байт между домашними устройствами по кабелю. Включают, только если большие кадры явно включены на всех устройствах по пути. На Wi‑Fi и на интернет не влияют.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011711/", title: "Управление коммутатором: Jumbo Frame, NAT Acceleration, агрегация", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://ru.wikipedia.org/wiki/Jumbo-кадр", title: "Jumbo-кадр", note: "ru.wikipedia.org" },
+    { href: "https://linkmeup.gitbook.io/sdsm/5.-acl-i-nat/01-nat", title: "NAT", note: "linkmeup · «Сети для самых маленьких»" },
+  ]}
+  here={[
+    { href: "/qos", title: "QoS - QoS", note: "Может отключить ускорение" },
+  ]}
+/>

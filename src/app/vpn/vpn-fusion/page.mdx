@@ -1,0 +1,54 @@
+export const metadata = {
+  title: 'VPN - VPN Fusion',
+  description:
+    'VPN Fusion в роутере ASUS RT-BE50: VPN-клиент на роутере, выбор устройств, которые идут через туннель, и ограничения.',
+}
+
+# VPN - VPN Fusion
+
+VPN‑клиент на роутере: роутер сам подключается к внешнему VPN‑сервису или к другому VPN‑серверу, а вы выбираете, какие устройства идут через туннель. Удобно для телевизора, приставки и всего, на что VPN‑приложение не поставить. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus vpn fusion настройка', 'asus vpn fusion kill switch', 'policy based routing']}>
+  VPN‑клиент, несколько VPN‑подключений, маршрутизация по устройствам (policy‑based routing). Kill switch — «выключатель»: при обрыве VPN устройство остаётся без интернета, а не уходит в обычный.
+</HowToSearch>
+
+## VPN Fusion
+
+<Fields>
+  <Field name="Add profile" aka="добавить подключение" kind="info" example="Add profile">
+    Новое подключение. <K>VPN type</K>: WireGuard (файл `.conf`), OpenVPN (`.ovpn`), L2TP, PPTP и три пресета коммерческих VPN‑сервисов. IPsec‑клиента нет. До 16 профилей.
+  </Field>
+  <Field name="Default Connection" aka="подключение по умолчанию" options={['Internet Connection', 'профиль VPN']}>
+    Через что идёт трафик устройств, которые не назначены отдельно: обычный интернет или туннель.
+  </Field>
+  <Field name="Список устройств профиля" aka="exception list">
+    Каким устройствам ходить через этот туннель. Остальные идут как обычно.
+  </Field>
+  <Field name="VPN Network" aka="целая сеть через VPN">
+    Отдельная Wi‑Fi сеть, весь трафик которой идёт в туннель: <Path items={['Network']} />. Подключил устройство к ней — и оно в VPN.
+  </Field>
+</Fields>
+
+<Note tone="bad">
+  Kill switch в VPN Fusion нет: ни в интерфейсе, ни в коде страницы на этой прошивке. При обрыве туннеля устройства уходят в обычный интернет под вашим настоящим адресом.
+</Note>
+
+Какие DNS‑серверы получают устройства в туннеле, тоже стоит проверить, например на dnsleaktest.com: сведения расходятся, а от этого зависит, работает ли для них фильтр рекламы и не видит ли провайдер их DNS‑запросы.
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1048506/', title: 'Зачем нужны несколько VPN-подключений (VPN Fusion)', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1048507/', title: 'VPN Fusion как подключение по умолчанию', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1048282/', title: 'Как настроить клиент WireGuard в VPN Fusion', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1051131/', title: 'Как настроить клиент OpenVPN в VPN Fusion', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/support/faq/1053666/', title: 'How to set up VPN Network', note: 'asus.com · FAQ · на английском' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/VPN', title: 'VPN', note: 'ru.wikipedia.org' },
+    { href: 'https://en.wikipedia.org/wiki/Policy-based_routing', title: 'Policy-based routing', note: 'en.wikipedia.org · на английском' },
+  ]}
+  here={[
+    { href: '/checklist', title: 'Чеклист приватности и безопасности', note: 'Что VPN даёт и чего не даёт' },
+    { href: '/network', title: 'Network', note: 'VPN Network' },
+  ]}
+/>

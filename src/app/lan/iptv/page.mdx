@@ -1,0 +1,63 @@
+export const metadata = {
+  title: 'LAN - IPTV',
+  description:
+    'Настройки IPTV в роутере ASUS RT-BE50: порт для приставки, VLAN, multicast и udpxy — что это и когда трогать.',
+}
+
+# LAN - IPTV
+
+Настройки для телевидения от провайдера (IPTV). Нужны, если провайдер показывает ТВ через приставку или multicast. Смотрите ТВ через приложения и сайты — ничего здесь не трогайте. {{ className: 'lead' }}
+
+Какие значения нужны, знает только ваш провайдер: номер VLAN, порт для приставки. Ищите инструкцию на его сайте по запросу «IPTV ASUS» и названию провайдера. Роутер поддерживает только одну услугу IPTV.
+
+<HowToSearch queries={["asus настроить iptv", "asus iptv manual setting vlan", "udpxy плейлист"]}>
+  IPTV, ТВ‑приставка (STB), VLAN ID, мультикаст, IGMP proxy, IGMP snooping, udpxy.
+</HowToSearch>
+
+## IPTV / VoIP Port Settings
+
+<Fields>
+  <Field name="Select ISP Profile" aka="профиль провайдера" options={['None', '…профили провайдеров…', 'Manual Setting']} recommended="None">
+    Готовые настройки провайдеров, в основном азиатских и европейских. Если провайдер дал номер VLAN, выберите <K>Manual Setting</K> и впишите его.
+  </Field>
+  <Field name="Choose IPTV STB Port" aka="порт для приставки" options={['None', 'LAN1', 'LAN2', 'LAN3', 'LAN1 & LAN2', 'LAN2 & LAN3']}>
+    Выделить LAN‑порт под ТВ‑приставку: он соединяется с интернет‑портом напрямую, роутер в этом не участвует.
+  </Field>
+  <Field name="Use DHCP routes" options={['Disable', 'Microsoft', 'RFC3442', 'RFC3442 & Microsoft']}>
+    Принимать маршруты, которые присылает провайдер. Нужно некоторым провайдерам с IPTV.
+  </Field>
+</Fields>
+
+## Special Applications
+
+<Fields>
+  <Field name="Enable multicast routing" aka="IGMP proxy" options={['Disable', 'Enable']}>
+    Пропускать multicast‑поток ТВ из сети провайдера в домашнюю сеть, к телевизору или компьютеру без приставки.
+  </Field>
+  <Field name="Default IGMP version / Default MLD version" options={['IGMP v1', 'IGMP v2', 'IGMP v3']}>
+    Версия протокола подписки на поток. Появляется при включённом multicast. Нужную версию подскажет провайдер; в документации ASUS по умолчанию v3.
+  </Field>
+  <Field name="Enable Fast Leave" options={['Disable', 'Enable']}>
+    Быстрее отключать поток, когда переключили канал.
+  </Field>
+  <Field name="Enable efficient multicast forwarding (IGMP Snooping)" aka="IGMP Snooping" options={['Disable', 'Enable']}>
+    Отправлять поток только тем устройствам, которые его смотрят, а не всем подряд. Для Wi‑Fi то же самое включается отдельно для каждого диапазона в <Path items={['Wireless', 'Professional']} />.
+  </Field>
+  <Field name="UDP Proxy (Udpxy)" aka="udpxy" kind="text" example="0">
+    Превращает multicast‑поток в обычный HTTP, чтобы смотреть ТВ на телефоне или в плеере. Здесь вписывают номер порта, `0` — выключено. С портом `4000` адрес канала в плейлисте выглядит как `http://192.168.50.1:4000/udp/адрес:порт`.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011708/", title: "Как настроить IPTV", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/support/faq/1011708/", title: "How to set up IPTV", note: "asus.com · FAQ · на английском, с профилями и VLAN" },
+    { href: "https://moskva.beeline.ru/shop/review/kak-pravilno-nastroit-router-asus/", title: "Настройка роутера Asus", note: "beeline.ru · пример провайдера" },
+  ]}
+  learn={[
+    { href: "https://linkmeup.gitbook.io/sdsm/9.-multicast/0.-obchee-ponatie-multicast", title: "Multicast: общее понимание", note: "linkmeup · «Сети для самых маленьких»" },
+    { href: "https://linkmeup.gitbook.io/sdsm/9.-multicast/1.-igmp", title: "IGMP", note: "linkmeup · «Сети для самых маленьких»" },
+    { href: "https://archive.keenetic.ru/articles/214471365.html", title: "Просмотр IPTV через UDP Proxy", note: "archive.keenetic.ru · зачем udpxy" },
+    { href: "https://ru.wikipedia.org/wiki/IEEE_802.1Q", title: "IEEE 802.1Q (VLAN)", note: "ru.wikipedia.org" },
+  ]}
+/>

@@ -1,0 +1,67 @@
+export const metadata = {
+  title: 'Parental Controls - AdGuard',
+  description:
+    'Встроенный AdGuard DNS в роутере ASUS RT-BE50: блокировка рекламы и трекеров для всей сети, плюсы и минусы.',
+}
+
+# Parental Controls - AdGuard
+
+Встроенное подключение к облачному сервису AdGuard DNS. Роутер отправляет все <T>DNS</T>‑запросы сети в AdGuard, а тот не отвечает на адреса рекламы, трекеров и вредоносных сайтов. Работает сразу для всех устройств, включая телевизор. Ничего ставить на устройства не нужно. {{ className: 'lead' }}
+
+Это облачный AdGuard DNS (adguard-dns.io). AdGuard Home — другой продукт, его ставят на свой компьютер или сервер. Вкладке нужна прошивка новее 3.0.0.6.102.34713. Двухфакторную защиту и вход через Google или Apple в аккаунте AdGuard роутер не понимает. В некоторых регионах функция недоступна.
+
+<HowToSearch queries={["asus adguard dns настройка", "dns фильтрация рекламы как работает", "adguard dns списки блокировки"]}>
+  AdGuard DNS — облачный сервис; не путать с AdGuard Home (свой сервер дома). Ещё говорят: DNS‑фильтрация, блокировка рекламы на уровне DNS, приватный DNS.
+</HowToSearch>
+
+## Элементы страницы
+
+<Fields>
+  <Field name="Enable AdGuard" aka="включить" options={['ON', 'OFF']}>
+    Включает интеграцию.
+  </Field>
+  <Field name="ADGUARD Account" aka="вход в AdGuard" kind="info" example="Login · Sign up">
+    Вход в аккаунт AdGuard DNS прямо из роутера. Поля ниже появляются после входа. Если выйти из аккаунта, фильтрация продолжит работать.
+  </Field>
+  <Field name="Setup a New Router Profile" aka="новый профиль">
+    Роутер сам создаёт профиль в аккаунте AdGuard и отправляет в него DNS‑запросы сети.
+  </Field>
+  <Field name="Connected router profiles" aka="профили">
+    Выбрать существующий профиль и нажать <K>Apply all settings</K>.
+  </Field>
+  <Field name="Привязка к сетям" aka="SDN">
+    Разным сетям из <Path items={['Network']} /> можно назначить разные профили: детской строже, умному дому только блокировку трекеров.
+  </Field>
+  <Field name="Statistics / Advanced Settings" aka="статистика, списки">
+    Ссылки в панель AdGuard DNS: статистика по доменам, списки блокировки, свои правила.
+  </Field>
+</Fields>
+
+## Плюсы и минусы
+
+<Fields>
+  <Field name="Плюсы">
+    Реклама и трекеры режутся на всех устройствах сразу. Если запросы к AdGuard идут по зашифрованному DNS, провайдер их не видит (проверить можно в <Path items={['WAN', 'Internet Connection']} />). Видна статистика: что и куда стучится из вашей сети.
+  </Field>
+  <Field name="Минусы">
+    Все ваши DNS‑запросы видит AdGuard: вы переносите доверие с провайдера на него. DNS блокирует домены целиком и не умеет вырезать куски страницы. Поэтому рекламу в YouTube и соцсетях он не уберёт: она приходит с тех же адресов, что и видео. Изредка блокируется что-то нужное, тогда домен добавляют в исключения.
+  </Field>
+</Fields>
+
+Подробнее о том, что даёт фильтрация DNS и чем её дополнить, — в <Path items={['Справочник', 'Приватность и безопасность']} />.
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1051213/", title: "Как настроить AdGuard DNS на роутере ASUS", note: "asus.com · FAQ" },
+    { href: "https://adguard-dns.io/kb/ru/private-dns/connect-devices/routers/asus/", title: "AdGuard DNS на роутере Asus вручную, через DoT", note: "adguard-dns.io · если вкладки нет" },
+  ]}
+  learn={[
+    { href: "https://adguard-dns.io/kb/ru/general/dns-filtering/", title: "DNS-фильтрация: как работает и что не умеет", note: "adguard-dns.io" },
+    { href: "https://adguard-dns.io/kb/ru/private-dns/setting-up-filtering/blocklists/", title: "Списки блокировки", note: "adguard-dns.io · что включить" },
+    { href: "https://ru.wikipedia.org/wiki/DNS_поверх_TLS", title: "DNS поверх TLS", note: "ru.wikipedia.org" },
+  ]}
+  here={[
+    { href: "/checklist", title: "Чеклист приватности и безопасности", note: "Что ещё можно сделать в роутере" },
+    { href: "/wan/internet-connection", title: "WAN - Internet Connection", note: "Шифрование DNS" },
+  ]}
+/>

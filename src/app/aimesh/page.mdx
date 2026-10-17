@@ -1,0 +1,53 @@
+export const metadata = {
+  title: 'AiMesh',
+  description:
+    'AiMesh в роутере ASUS RT-BE50: как несколько роутеров ASUS становятся одной сетью и какие настройки на этой странице.',
+}
+
+# AiMesh
+
+AiMesh объединяет несколько роутеров ASUS в одну сеть с общим именем и паролем: телефон сам переходит к ближайшему. Если роутер один, страница понадобится только при покупке второго. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus aimesh ethernet backhaul настройка", "бесшовный роуминг 802.11k v r", "aimesh roaming block list"]}>
+  Mesh‑система, Wi‑Fi‑система, ячеистая сеть. Главный роутер — AiMesh Router, остальные — узлы (AiMesh Node, сателлиты). Канал между узлами — backhaul, «транзитная сеть» в переводе ASUS.
+</HowToSearch>
+
+## Элементы страницы
+
+<Fields>
+  <Field name="Topology" aka="схема сети">
+    Схема сети. Этот роутер главный (AiMesh Router), остальные подключены к нему как узлы (AiMesh Node).
+  </Field>
+  <Field name="Search / Add AiMesh Node" aka="добавить узел">
+    Поиск второго роутера ASUS поблизости. Его нужно сбросить к заводским настройкам или перевести в режим узла, иначе он не найдётся.
+  </Field>
+  <Field name="Backhaul connection priority" aka="транспортная связь, backhaul" options={['Auto', 'Ethernet']} recommended="Auto">
+    Как узлы связаны с главным роутером. Набор вариантов зависит от модели узлов. Кабель всегда надёжнее и быстрее Wi‑Fi. Если узлы соединены кабелем, включите и <K>Ethernet backhaul mode</K>.
+  </Field>
+  <Field name="Карточка узла" aka="node">
+    Имя, IP, прошивка, расположение, список устройств; кнопки <K>Reboot</K> и <K>Remove</K>.
+  </Field>
+</Fields>
+
+<Note tone="ok">
+  Все настройки делаются только на главном роутере, узлы берут их оттуда: Wi‑Fi, DNS, фильтры.
+</Note>
+
+Переходить между узлами или нет, решает само устройство (телефон, ноутбук), сеть может только подсказать. Поэтому «липкий» телефон иногда держится за дальний узел. Устройства, которые AiMesh не должен перебрасывать, перечисляют в <Path items={['Wireless', 'Roaming Block List']} />.
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1035087/", title: "Как настроить систему AiMesh", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1040442/", title: "AiMesh 2.0: введение в интерфейс", note: "asus.com · FAQ · топология, карточка узла" },
+    { href: "https://www.asus.com/ru/support/faq/1044151/", title: "Как настроить проводную транзитную сеть (Ethernet backhaul)", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1046957/", title: "Как привязать клиента к узлу AiMesh", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://support.netcraze.ru/4g/nc-1213/ru/15234-specifics-of-client-transition-between-nodes-in-the-wi-fi-system.html", title: "Особенности переключения клиентов между узлами Wi‑Fi‑системы", note: "support.netcraze.ru · Keenetic · почему решает устройство" },
+    { href: "https://habr.com/ru/companies/tp_link_russia/articles/420857/", title: "Бесшовный Wi‑Fi‑роуминг: теория на практике", note: "habr.com · 802.11k/v/r" },
+    { href: "https://ru.wikipedia.org/wiki/Ячеистая_топология", title: "Ячеистая топология (mesh)", note: "ru.wikipedia.org" },
+  ]}
+  here={[
+    { href: "/wireless/roaming-block-list", title: "Wireless - Roaming Block List", note: "Кого не перебрасывать между узлами" },
+  ]}
+/>

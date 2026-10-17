@@ -1,0 +1,59 @@
+export const metadata = {
+  title: 'Wireless - WPS',
+  description:
+    'Подключение к Wi‑Fi кнопкой или PIN в роутере ASUS RT-BE50: как работает WPS и почему его лучше выключить.',
+}
+
+# Wireless - WPS
+
+<T>WPS</T> подключает устройство к Wi‑Fi без ввода пароля: нажали кнопку на роутере и на устройстве, и они сами договорились. Удобно для принтера или умной колонки, у которых нет клавиатуры. {{ className: 'lead' }}
+
+<Note>
+  Режим с <T>PIN</T> давно считается небезопасным: восьмизначный код подбирается за часы, а иногда за минуты, и вместе с ним раскрывается пароль Wi‑Fi. Если вы не подключаете технику через WPS, выключите его.
+</Note>
+
+<HowToSearch queries={["wps что это и как отключить", "wps pin уязвимость", "asus wps wpa3 не работает"]}>
+  В интерфейсе пункт называется <K>Enable WPS</K>. В описаниях встречается как «WPS», «Wi‑Fi Protected Setup», «кнопка QSS» (у некоторых производителей), «быстрое подключение».
+</HowToSearch>
+
+## Настройки
+
+<Fields>
+  <Field name="Enable WPS" aka="включить WPS" options={['ON', 'OFF']} recommended="OFF">
+    Главный выключатель. Если WPS не нужен, переведите в <K>OFF</K>. Тогда не работают ни кнопка, ни PIN. С защитой только <K>WPA3-Personal</K> WPS не работает вообще, нужен WPA2 или WPA2/WPA3.
+  </Field>
+  <Field name="Current Frequency" aka="диапазон WPS">
+    На каком диапазоне работает WPS: 2,4 или 5 ГГц. Переключается кнопкой <K>Switch Frequency</K>.
+  </Field>
+  <Field name="Connection Status">
+    Состояние: идёт ли сейчас подключение по WPS.
+  </Field>
+  <Field name="Configured" aka="состояние настройки">
+    Показывает, настроена ли сеть. Кнопка <K>Reset</K> сбрасывает состояние WPS, а не весь роутер.
+  </Field>
+  <Field name="AP PIN Code" aka="PIN роутера">
+    8‑значный PIN самого роутера (он же напечатан на наклейке). Кнопка <K>Reset</K> создаёт новый. Никому не показывайте этот код и не публикуйте скриншоты с ним.
+  </Field>
+  <Field name="WPS Method" options={['Push button', 'Client PIN Code']}>
+    Как подключать устройство: нажатием кнопки или вводом PIN самого устройства. Кнопка безопаснее PIN: она работает только пару минут после нажатия.
+  </Field>
+</Fields>
+
+Кнопку <K>WPS</K> на корпусе роутера можно переназначить: например, чтобы она включала и выключала Wi‑Fi или подсветку. Это настраивается на другой странице: <Path items={['Administration', 'System']} />.
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011434/", title: "Как настроить WPS-соединение", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1044457/", title: "Почему WPS не работает с WPA3-Personal", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1047786/", title: "Как переназначить кнопку WPS на индикаторы", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://ru.wikipedia.org/wiki/Wi-Fi_Protected_Setup", title: "Wi‑Fi Protected Setup", note: "ru.wikipedia.org" },
+    { href: "https://habr.com/ru/articles/135500/", title: "Уязвимость в протоколе Wi‑Fi Protected Setup", note: "habr.com · как работает атака на PIN" },
+    { href: "https://www.kb.cert.org/vuls/id/723755", title: "VU#723755: уязвимость WPS PIN", note: "kb.cert.org · первоисточник, на английском" },
+  ]}
+  here={[
+    { href: "/network", title: "Network", note: "Скрытая сеть и WPA3 отключают WPS" },
+    { href: "/administration/system", title: "Administration - System", note: "Что делает кнопка на корпусе" },
+  ]}
+/>

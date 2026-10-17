@@ -1,0 +1,66 @@
+export const metadata = {
+  title: 'Firewall - General',
+  description:
+    'Файрвол роутера ASUS RT-BE50: защита от DoS, ответ на ping, правила IPv4 и IPv6 — что включить.',
+}
+
+# Firewall
+
+Файрвол роутера: не пускает в домашнюю сеть подключения из интернета, о которых никто изнутри не просил. Включён по умолчанию, так и оставьте. {{ className: 'lead' }}
+
+<HowToSearch queries={['asus брандмауэр общие настройки', 'syn flood что это', 'ipv6 без nat устройства доступны из интернета']}>
+  Файрвол, брандмауэр, межсетевой экран (firewall). DoS protection — защита от флуда.
+</HowToSearch>
+
+## Basic Config
+
+<Fields>
+  <Field name="Enable Firewall" options={['Yes', 'No']} recommended="Yes">
+    Главный выключатель файрвола.
+  </Field>
+  <Field name="Enable DoS protection" aka="защита от DoS" options={['Yes', 'No']}>
+    Ограничивает поток подозрительных пакетов: попыток соединения, проверок портов, ping. По умолчанию выключено. Включить безопасно, если роутер виден из интернета с белым адресом.
+  </Field>
+  <Field name="Logged packets type" aka="журнал пакетов" options={['None', 'Dropped', 'Accepted', 'Both']} recommended="None">
+    Что записывать в <Path items={['System Log', 'General Log']} />. <K>Dropped</K> — для отладки.
+  </Field>
+  <Field name="Respond ICMP Echo (ping) Request from WAN" aka="ответ на ping из интернета" options={['Yes', 'No']} recommended="No">
+    Отвечать ли на ping из интернета. Выключено по умолчанию: так роутер чуть менее заметен для сканеров.
+  </Field>
+</Fields>
+
+## Inbound Firewall Rules (IPv4)
+
+<Fields>
+  <Field name="Enable IPv4 inbound firewall rules" aka="входящие правила" options={['Yes', 'No']}>
+    Дополнительные правила для входящих подключений с конкретных адресов и портов. Дома обычно не нужны.
+  </Field>
+</Fields>
+
+## IPv6 Firewall
+
+<Fields>
+  <Field name="Enable IPv6 Firewall" options={['Yes', 'No']} recommended="Yes">
+    В IPv6 нет NAT, и у каждого устройства «настоящий» адрес в интернете. Защищает их только этот файрвол. Включён по умолчанию.
+  </Field>
+  <Field name="Famous Server List / правило" aka="входящие правила IPv6" kind="text">
+    Открыть устройству нужный порт из интернета по IPv6. До 128 правил.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1013630/', title: 'Брандмауэр на роутере ASUS: введение', note: 'asus.com · FAQ · все поля и значения по умолчанию' },
+    { href: 'https://www.asus.com/ru/support/faq/1031610/', title: 'Как работает защита от DoS', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1013638/', title: 'Как настроить IPv6 Firewall', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://support.netcraze.ru/starter/nc-1121/ru/22345-how-does-a-firewall-work-.html', title: 'Как реализован межсетевой экран', note: 'support.netcraze.ru · Keenetic' },
+    { href: 'https://ru.wikipedia.org/wiki/Межсетевой_экран', title: 'Межсетевой экран', note: 'ru.wikipedia.org' },
+    { href: 'https://ru.wikipedia.org/wiki/SYN-флуд', title: 'SYN-флуд', note: 'ru.wikipedia.org' },
+    { href: 'https://www.rfc-editor.org/rfc/rfc6092', title: 'RFC 6092: Simple Security in IPv6 CPE', note: 'rfc-editor.org · на английском' },
+  ]}
+  here={[
+    { href: '/ipv6', title: 'IPv6', note: 'Настройки IPv6' },
+  ]}
+/>

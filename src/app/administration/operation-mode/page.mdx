@@ -1,0 +1,58 @@
+export const metadata = {
+  title: 'Administration - Operation Mode',
+  description:
+    'Режимы работы роутера ASUS RT-BE50: роутер, точка доступа, повторитель, медиамост, узел AiMesh — чем отличаются.',
+}
+
+# Administration - Operation Mode
+
+Кем работает устройство: полноценным роутером, точкой доступа за чужим роутером, усилителем чужого Wi‑Fi или узлом AiMesh. От режима зависит, какие функции вообще есть. {{ className: 'lead' }}
+
+<Note tone="bad">
+  После смены режима у роутера меняется адрес, и большая часть настроек пропадает из меню. Найти роутер потом поможет приложение ASUS Router или утилита Device Discovery.
+</Note>
+
+<HowToSearch queries={['asus режим точки доступа', 'asus повторитель или медиамост', 'двойной nat как убрать']}>
+  Режим работы, operation mode. AP mode — режим точки доступа; Repeater — повторитель, репитер; Media Bridge — медиамост; AiMesh Node — узел AiMesh.
+</HowToSearch>
+
+## Режимы
+
+<Fields>
+  <Field name="Wireless router mode / AiMesh Router mode (Default)" aka="роутер, режим по умолчанию">
+    Обычный режим: роутер раздаёт адреса, защищает сеть, фильтрует DNS, держит VPN. Все страницы этого справочника про него.
+  </Field>
+  <Field name="Access Point(AP) mode / AiMesh Router in AP mode" aka="точка доступа">
+    Только Wi‑Fi. Адреса раздаёт и защищает сеть вышестоящий роутер. У этого отключаются NAT, файрвол и все фильтры. Нужен, если роутер стоит за другим роутером и хочется убрать двойной <T>NAT</T>.
+  </Field>
+  <Field name="Repeater mode" aka="повторитель, репитер">
+    Усиливает чужой Wi‑Fi.
+  </Field>
+  <Field name="Media Bridge" aka="медиамост">
+    Подключается к чужому Wi‑Fi и раздаёт его по кабелю, например телевизору или приставке.
+  </Field>
+  <Field name="AiMesh Node" aka="узел AiMesh">
+    Становится узлом сети AiMesh другого роутера ASUS. Перед этим роутер сбрасывают к заводским настройкам.
+  </Field>
+</Fields>
+
+<Note tone="info">
+  Двойной NAT: если WAN IP в <Path items={['Network Map']} /> начинается с `192.168.`, `10.`, `172.16`–`172.31` или `100.64`–`100.127`, перед роутером стоит ещё один роутер или NAT провайдера. Интернет работает, но VPN‑сервер, DDNS и доступ извне без настройки вышестоящего устройства не заработают.
+</Note>
+
+<Related
+  official={[
+    { href: 'https://www.asus.com/ru/support/faq/1015007/', title: 'Обзор режимов работы', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1015009/', title: 'Как включить режим точки доступа', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1036082/', title: 'Как настроить режим повторителя', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1043884/', title: 'Как настроить режим медиамоста', note: 'asus.com · FAQ' },
+    { href: 'https://www.asus.com/ru/support/faq/1035139/', title: 'AiMesh-роутер в режиме точки доступа', note: 'asus.com · FAQ' },
+  ]}
+  learn={[
+    { href: 'https://ru.wikipedia.org/wiki/Беспроводная_точка_доступа', title: 'Беспроводная точка доступа', note: 'ru.wikipedia.org' },
+    { href: 'https://ru.wikipedia.org/wiki/NAT', title: 'NAT', note: 'ru.wikipedia.org' },
+  ]}
+  here={[
+    { href: '/aimesh', title: 'AiMesh', note: 'Несколько роутеров в одной сети' },
+  ]}
+/>

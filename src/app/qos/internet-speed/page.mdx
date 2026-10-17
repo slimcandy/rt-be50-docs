@@ -1,0 +1,29 @@
+export const metadata = {
+  title: 'QoS - Internet Speed',
+  description:
+    'Встроенный тест скорости интернета в роутере ASUS RT-BE50: что он меряет и чем отличается от теста на телефоне.',
+}
+
+# QoS - Internet Speed
+
+Тест скорости интернета, который запускает сам роутер (сервис Ookla Speedtest). Он меряет канал от роутера до провайдера, без влияния Wi‑Fi. {{ className: 'lead' }}
+
+Если с роутера скорость полная, а на телефоне низкая, дело в Wi‑Fi: расстояние, стены, соседние сети. Если низкая и с роутера, вопрос к провайдеру или к тарифу.
+
+Тест показывает задержку (ping), её разброс (jitter), скорость загрузки и отдачи. Сохраните пару результатов в разное время суток: это хороший аргумент в разговоре с провайдером, если скорость регулярно ниже обещанной.
+
+<HowToSearch queries={["asus internet speed ookla", "как правильно измерить скорость интернета"]}>
+  Спидтест, тест скорости, Ookla Speedtest.
+</HowToSearch>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1050265/", title: "Как пользоваться функцией скорости интернета", note: "asus.com · FAQ" },
+  ]}
+  learn={[
+    { href: "https://support.netcraze.ru/4g/nc-1213/ru/45477-how-to-measure-the-internet-connection-speed-.html", title: "Как измерить скорость интернет-канала", note: "support.netcraze.ru · Keenetic · кабель, несколько замеров, PPPoE" },
+  ]}
+  here={[
+    { href: "/qos", title: "QoS - QoS", note: "Распределение канала" },
+  ]}
+/>

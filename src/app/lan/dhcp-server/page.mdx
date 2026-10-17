@@ -1,0 +1,71 @@
+export const metadata = {
+  title: 'LAN - DHCP Server',
+  description:
+    'DHCP-сервер в роутере ASUS RT-BE50: как устройства получают адреса и DNS, как закрепить IP за устройством.',
+}
+
+# LAN - DHCP Server
+
+<T>DHCP</T> раздаёт подключившимся устройствам адрес, шлюз и <T>DNS</T>. Без него каждое устройство пришлось бы настраивать вручную. Здесь же закрепляют постоянный адрес за принтером, NAS или камерой. {{ className: 'lead' }}
+
+<HowToSearch queries={["asus настроить dhcp сервер", "asus pi-hole adguard home dns", "резервирование ip dhcp по mac"]}>
+  DHCP‑сервер, пул адресов, время аренды (lease time). Закрепление адреса — резервирование, статическая аренда, DHCP reservation.
+</HowToSearch>
+
+## Basic Config
+
+<Fields>
+  <Field name="Enable the DHCP Server" options={['Yes', 'No']} recommended="Yes">
+    Раздавать адреса автоматически. Выключают, только если адреса раздаёт другое устройство.
+  </Field>
+  <Field name="IP Pool Starting Address / IP Pool Ending Address" aka="диапазон адресов" kind="text" example="192.168.50.2 – .254">
+    Из какого диапазона раздавать адреса.
+  </Field>
+  <Field name="Lease time" aka="время аренды" kind="text" example="86400">
+    Сколько секунд устройство держит адрес, прежде чем продлить. Сутки подходят.
+  </Field>
+  <Field name="Default Gateway" aka="шлюз" kind="text">
+    Пусто — шлюзом будет сам роутер. Так и оставьте.
+  </Field>
+</Fields>
+
+## DNS and WINS Server Setting
+
+<Fields>
+  <Field name="DNS Server 1 / DNS Server 2" aka="DNS для устройств" kind="text">
+    Пусто — устройства спрашивают DNS у роутера, а роутер у серверов из <Path items={['WAN', 'Internet Connection']} />. Так работают шифрование DNS и фильтры роутера. Если вписать сюда внешний адрес, устройства пойдут к нему напрямую, мимо роутера. Свой адрес вписывают, если в сети стоит свой DNS‑фильтр (AdGuard Home, Pi-hole). Сама ASUS для такого фильтра советует другой путь: вписать его адрес в DNS на странице WAN. Тогда фильтр видит все запросы как запросы роутера и не различает устройства.
+  </Field>
+  <Field name="Advertise router's IP in addition to user-specified DNS" aka="роутер как второй DNS" options={['Yes', 'No']}>
+    Если выше вписан свой DNS, отдавать устройствам ещё и адрес роутера. Для своего фильтрующего DNS‑сервера выберите <K>No</K>, иначе устройства будут иногда спрашивать в обход него. Побочный эффект: перестанет открываться адрес `www.asusrouter.com`, в настройки придётся заходить по `192.168.50.1`.
+  </Field>
+  <Field name="WINS Server" kind="text">
+    Устаревшая служба имён Windows. Оставьте пустым.
+  </Field>
+</Fields>
+
+## Manual Assignment
+
+<Fields>
+  <Field name="Enable Manual Assignment" aka="резервирование адреса, статический IP" options={['Yes', 'No']}>
+    Закреплять адрес за устройством по его MAC. Нужно принтеру, NAS, камере, серверу: всему, к чему обращаются по адресу. До 64 записей. Адрес должен быть внутри диапазона раздачи, хотя русский заголовок статьи ASUS говорит «вне диапазона»: это ошибка перевода.
+  </Field>
+  <Field name="Client Name (MAC Address) / IP Address" aka="строка привязки" kind="text" example="MAC → IP">
+    Устройство и адрес, который оно всегда будет получать. Необязательное поле <K>DNS Server</K> в этой строке задаёт свой DNS одному устройству.
+  </Field>
+</Fields>
+
+<Related
+  official={[
+    { href: "https://www.asus.com/ru/support/faq/1011703/", title: "Как настроить DHCP-сервер", note: "asus.com · FAQ · все поля вкладки" },
+    { href: "https://www.asus.com/ru/support/faq/1000906/", title: "Как вручную назначить IP устройству", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1050080/", title: "Как не раздавать адрес роутера как DNS", note: "asus.com · FAQ" },
+    { href: "https://www.asus.com/ru/support/faq/1046062/", title: "Как настроить роутер для Pi-hole", note: "asus.com · FAQ · свой DNS-фильтр" },
+  ]}
+  learn={[
+    { href: "https://ru.wikipedia.org/wiki/DHCP", title: "DHCP", note: "ru.wikipedia.org" },
+    { href: "https://ru.wikipedia.org/wiki/WINS", title: "WINS", note: "ru.wikipedia.org · почему устарел" },
+  ]}
+  here={[
+    { href: "/system-log/dhcp-leases", title: "System Log - DHCP leases", note: "Кому какой адрес выдан" },
+  ]}
+/>
