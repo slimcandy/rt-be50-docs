@@ -1,5 +1,6 @@
 export const SITE_URL = 'https://rt-be50.volkov.ru.net'
 export const SITE_NAME = 'RT-BE50: справочник'
+export const PUBLISHED = '2026-10-17T00:00:00+03:00'
 
 // Every router page has its own .asp address, so a page of this guide can link
 // straight to the matching page of the router. Works from the home network.

@@ -2,13 +2,12 @@
   "name": "rt-be50-docs",
   "version": "0.1.0",
   "private": true,
-  "description": "Unofficial plain-Russian guide to every page and field of the ASUS RT-BE50 web interface",
+  "description": "Неофициальный справочник на простом русском по веб-интерфейсу роутера ASUS RT-BE50",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "npx --yes serve out",
-    "lint": "eslint",
     "card": "node scripts/share-card.mjs"
   },
   "browserslist": "defaults, not ie <= 11",
@@ -44,12 +43,7 @@
     "@types/node": "^24.1.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
-    "eslint": "^9.39.4",
-    "eslint-config-next": "^16.1.6",
-    "playwright": "1.63.0",
-    "prettier": "^3.8.3",
-    "prettier-plugin-organize-imports": "^4.2.0",
-    "prettier-plugin-tailwindcss": "^0.8.1"
+    "playwright": "1.63.0"
   },
   "overrides": {
     "@types/react": "19.2.14",

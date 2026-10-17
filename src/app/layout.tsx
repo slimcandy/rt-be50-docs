@@ -1,7 +1,7 @@
 import { type Metadata, type Viewport } from 'next'
 
 import { Layout } from '@/components/Layout'
-import { SITE_NAME, SITE_URL } from '@/data/site'
+import { PUBLISHED, SITE_NAME, SITE_URL } from '@/data/site'
 
 import '@/styles/tailwind.css'
 
@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   alternates: { canonical: './' },
   openGraph: {
     type: 'website',
+    url: './',
     siteName: SITE_NAME,
     locale: 'ru_RU',
     description,
@@ -46,6 +47,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <body className="min-h-full pr-[max(16px,env(safe-area-inset-right))] pl-[max(16px,env(safe-area-inset-left))] py-2.5 antialiased">
+        {/* LinkedIn reads the date from this tag; React moves it into <head>. */}
+        <meta name="publish_date" property="og:publish_date" content={PUBLISHED} />
         <Layout>{children}</Layout>
       </body>
     </html>

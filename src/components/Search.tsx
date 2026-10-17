@@ -247,7 +247,6 @@ function SearchDialog({
             <form
               ref={formRef}
               {...autocomplete.getFormProps({
-                // eslint-disable-next-line react-hooks/refs
                 inputElement: inputRef.current,
               })}
             >
@@ -289,12 +288,10 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   let pathname = usePathname()
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setModifierKey(/(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? '⌘' : 'Ctrl ')
   }, [])
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsOpen(false)
   }, [pathname])
 

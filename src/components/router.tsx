@@ -340,7 +340,6 @@ function MobileMenu() {
   let [open, setOpen] = useState(false)
   let pathname = usePathname()
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(false)
   }, [pathname])
 
